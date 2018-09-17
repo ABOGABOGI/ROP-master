@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textViewStyle">@style/DefaultTextView</item>
+        <item name="android:editTextStyle">@style/DefaulEditText</item>
+        <item name="android:buttonStyle">@style/DefaulButton</item>
+    </style>
+
+    <style name="DefaulButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/rounded_primary_button</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="DefaulEditText" parent="android:Widget.EditText">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:textColorHint">@color/divider_color</item>
+    </style>
+
+    <style name="DefaultTextView" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_12sp</item>
+    </style>
+
+    <style name="darkPopupAnimation" parent="@android:style/Theme.Panel">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowAnimationStyle">@style/QueueDialogTheme.Window</item>
+    </style>
+
+    <style name="QueueDialogTheme.Window" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/anim_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_out</item>
+    </style>
+
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textColor">@color/textColorMain</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+</resources>

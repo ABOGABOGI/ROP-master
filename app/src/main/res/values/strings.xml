@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Rich On Pay</string>
+    <string name="server_maintenance">Terjadi kesalahan yang tidak diketahui. Tolong coba lagi nanti.</string>
+    <string name="timeout_message">Oops, kami tidak dapat terbung ke server, Silakan periksa koneksi internet Anda.</string>
+    <string name="session_over">Session login Anda sudah habis.\nMohon ulang Login untuk melanjutkan kegiatan Anda.</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="forgot_password">LUPA KATA SANDI?</string>
+    <string name="signin">Masuk</string>
+    <string name="fullname">Name Lengkap</string>
+    <string name="phone_number">Nomor Handphone</string>
+    <string name="leader_code">Kode Leader</string>
+    <string name="sponsor_code">Kode Sponsor</string>
+    <string name="confirm_password">Ulangi Kata Sandi</string>
+    <string name="i_have_a_referral_code">Saya Memiliki Kode Referral</string>
+    <string name="agree_with_terms">Dengan mendaftar Anda telah setuju dengan ketentuan layanan kami</string>
+    <string name="register">Daftar</string>
+    <string name="loading">Loading...</string>
+    <string name="dont_have_an_account_register_now">Belum Punya Akun? Daftar Sekarang</string>
+    <string name="press_again_to_exit">Tekan lagi untuk keluar</string>
+    <string name="home">Beranda</string>
+    <string name="order">Pesanan</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="notification">Notifikasi</string>
+    <string name="account">Akun</string>
+</resources>

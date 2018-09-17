@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#E83338</color>
+    <color name="colorPrimaryDark">#FC342D</color>
+    <color name="colorAccent">#00A0C3</color>
+    <color name="colorPrimaryPressed">#00B0D3</color>
+    <color name="deepBlue">#03497E</color>
+    <color name="background">#EEEEEE</color>
+
+    <color name="updatedBackground">#EFEFF4</color>
+    <color name="updatedYellow">#FEB228</color>
+    <color name="updatedGrey">#E8E9EA</color>
+    <color name="updatedDarkButtonText">#03497E</color>
+    <color name="updatedLightBlue">#bfe6ff</color>
+    <color name="updatedLightBlueDarkened">#78CAFF</color>
+
+    <color name="textColorMain">#464646</color>
+    <color name="textColorFaded">#a2a2a2</color>
+    <color name="textColorDiscount">#6e6e6e</color>
+    <color name="textColorRed">#cc180e</color>
+    <color name="textColorYellow">#FFD500</color>
+    <color name="textColorActive">#39d134</color>
+
+    <color name="colorPrimaryLight">#22ADCC</color>
+    <color name="grey_background">#F2F2F2</color>
+    <color name="disabled_button">#6E6E73</color>
+    <color name="divider_color">#E0E0E0</color>
+    <color name="divider_color_light">#ECEEF1</color>
+    <color name="divider_color_dark">#8E8E93</color>
+    <color name="ratingbar_active">#fff82b</color>
+    <color name="light_gray">#949494</color>
+
+    <color name="colorLightGreen">#0ECC14</color>
+    <color name="colorRedLight">#ff2828</color>
+    <color name="colorDarkGray">#e7e7e7</color>
+    <color name="colorDarkerGray">#808080</color>
+    <color name="grey_transparent">#60464646</color>
+    <color name="dark_transparent">#D7000000</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="shadow">#BDBDBD</color>
+    <color name="lightBlack">#303030</color>
+    <color name="logoutRed">#FF372C</color>
+    <color name="event_angpao_background">#FD4B2D</color>
+    <color name="event_angpao_background_pressed">#FD5B1D</color>
+    <color name="event_angpao_text">#FFE984</color>
+    <color name="goldYellow">#FFC400</color>
+    <color name="colorRedYellow">#FF531D</color>
+    <color name="color_empty_response">#E6E6E6</color>
+    <color name="notification_bell">#6a6a6a</color>
+    <color name="gradient_dark">#03497E</color>
+    <color name="gradient_light">#0596D5</color>
+    <color name="yellow_secondary">#FEB228</color>
+    <color name="grey_light">#E8E9EA</color>
+    <color name="grey_dark">#8A8A8F</color>
+    <color name="otpLine">#707070</color>
+    <color name="black_alpha">#AA000000</color>
+    <color name="black_alpha_light">#64000000</color>
+    <color name="grey_tab_background">#F7F7F7</color>
+    <color name="divider_light_grey">#C7C7CC</color>
+    <color name="color_grey_lighter">#F6F6F6</color>
+    <color name="totp_green">#00C43B</color>
+    <color name="brightYellow">#FFCB6B</color>
+</resources>
