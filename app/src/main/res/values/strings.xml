@@ -24,4 +24,11 @@
     <string name="scan_qr">Scan QR</string>
     <string name="notification">Notifikasi</string>
     <string name="account">Akun</string>
+    <string name="no_orders_found">Pesanan Tidak Ditemukan</string>
+    <string name="you_havent_order_yet_message">Anda belum memiliki pesanan, Silahkan lakukan transaksi terlebih dahulu</string>
+    <string name="balance">Saldo</string>
+    <string name="point">Poin</string>
+    <string name="topup">Isi Saldo</string>
+    <string name="exchange">Tukar</string>
+    <string name="digital_product">Produk Digital</string>
 </resources>

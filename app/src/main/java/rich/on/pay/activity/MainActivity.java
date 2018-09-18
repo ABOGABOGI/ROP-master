@@ -57,7 +57,7 @@ public class MainActivity extends ToolbarActivity {
         viewPager.setClipToPadding(false);
         viewPager.setPadding(0, 0, 0, 0);
         viewPager.setPageMargin(0);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(5);
         viewPagerAdapter.addPage(new HomeFragment(), getString(R.string.home));
         viewPagerAdapter.addPage(new OrderFragment(), getString(R.string.order));
         viewPagerAdapter.addPage(new ScanQRFragment(), getString(R.string.scan_qr));
@@ -169,7 +169,7 @@ public class MainActivity extends ToolbarActivity {
             TabLayout.Tab tab4 = tabLayout.getTabAt(4);
 
             if (tab0 != null) {
-                tab0.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.home_active);
+                tab0.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.home_inactive);
             }
 
             if (tab1 != null) {
@@ -197,7 +197,7 @@ public class MainActivity extends ToolbarActivity {
                     break;
                 case 1:
                     if (tab1 != null) {
-                        tab1.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.order_inactive);
+                        tab1.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.order_active);
                         addToolbarBackground();
                         tvTitle.setText(getString(R.string.order));
                     }
@@ -239,7 +239,7 @@ public class MainActivity extends ToolbarActivity {
     }
 
     private void revertStatusBar() {
-        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.background));   
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.background));
         tvTitle.setText("");
         ivLogo.setVisibility(View.VISIBLE);
     }

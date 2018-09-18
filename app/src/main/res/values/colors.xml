@@ -6,6 +6,8 @@
     <color name="colorPrimaryPressed">#00B0D3</color>
     <color name="deepBlue">#03497E</color>
     <color name="background">#EEEEEE</color>
+    <color name="textGrey">#757575</color>
+    <color name="packageDark">#1C1A19</color>
 
     <color name="updatedBackground">#EFEFF4</color>
     <color name="updatedYellow">#FEB228</color>
