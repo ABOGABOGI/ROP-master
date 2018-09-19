@@ -9,10 +9,15 @@
         <item name="windowNoTitle">true</item>
         <item name="android:textViewStyle">@style/DefaultTextView</item>
         <item name="android:editTextStyle">@style/DefaulEditText</item>
-        <item name="android:buttonStyle">@style/DefaulButton</item>
+        <item name="android:buttonStyle">@style/DefaultButton</item>
     </style>
 
-    <style name="DefaulButton" parent="Widget.AppCompat.Button">
+    <style name="DefaultButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/rounded_primary_button</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="RoundedRedButton" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/rounded_primary_button</item>
         <item name="android:textAllCaps">true</item>

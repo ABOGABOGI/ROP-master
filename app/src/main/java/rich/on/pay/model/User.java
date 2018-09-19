@@ -85,6 +85,7 @@ public class User {
     private IdentityResponse selfieIC;
     @SerializedName("unread_notification")
     private int unreadNotification;
+    private int packages;
 
     //USAHA
     private String usaha;
@@ -923,6 +924,14 @@ public class User {
 
     public void setAcceptPolicy(boolean acceptPolicy) {
         this.acceptPolicy = acceptPolicy;
+    }
+
+    public int getPackages() {
+        return packages;
+    }
+
+    public void setPackages(int packages) {
+        this.packages = packages;
     }
 }
 

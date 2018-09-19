@@ -127,7 +127,7 @@ public class API {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(BuildConfig.ROOT_URL + "/api/v1/")
+                    .baseUrl(BuildConfig.ROOT_URL + "/api/")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 
@@ -140,8 +140,8 @@ public class API {
     public static APIService serviceWithoutToken() {
         ignoreToken = true;
         if (SERVICE == null) {
-//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient client = new OkHttpClient.Builder()
 //                    .addInterceptor(logging)
@@ -170,7 +170,7 @@ public class API {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(BuildConfig.ROOT_URL + "/api/v1/")
+                    .baseUrl(BuildConfig.ROOT_URL + "/api/")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 

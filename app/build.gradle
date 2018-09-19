@@ -15,13 +15,13 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', "proguard-fresco.pro"
-            buildConfigField "String", "ROOT_URL", "\"https://mareco.app\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.88.118:8000\""
         }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', "proguard-fresco.pro"
-            buildConfigField "String", "ROOT_URL", "\"https://mareco.app\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.88.118:8000\""
         }
     }
 }

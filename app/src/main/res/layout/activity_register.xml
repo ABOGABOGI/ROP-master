@@ -172,7 +172,7 @@
 
         <Button
             android:id="@+id/btnRegister"
-            style="@style/DefaulButton"
+            style="@style/RoundedRedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/register" />

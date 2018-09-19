@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import rich.on.pay.R;
 import rich.on.pay.adapter.ProductPaymentAdapter;
+import rich.on.pay.api.API;
 import rich.on.pay.base.BaseFragment;
 import rich.on.pay.model.PaymentProduct;
 import rich.on.pay.utils.BannerImageLoader;
@@ -158,7 +159,21 @@ public class HomeFragment extends BaseFragment {
 
         mAdapter.setItems(paymentProducts);
 
-        tvName.setText("Ade Gunawan");
-        tvPackage.setText("Gold Member");
+        tvName.setText(API.currentUser().getFullname());
+
+        switch (API.currentUser().getPackages()) {
+            case 0:
+                tvPackage.setText("Free Member");
+                break;
+            case 1:
+                tvPackage.setText("Silver Member");
+                break;
+            case 2:
+                tvPackage.setText("Gold Member");
+                break;
+            case 4:
+                tvPackage.setText("Platinum Member");
+                break;
+        }
     }
 }

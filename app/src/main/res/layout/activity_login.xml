@@ -14,10 +14,10 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/login_bg"
-            android:scaleType="fitXY"
             android:background="@android:color/black"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/login_bg" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -90,18 +90,19 @@
 
         <Button
             android:id="@+id/btnLogin"
-            style="@style/DefaulButton"
+            style="@style/RoundedRedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/signin" />
 
         <TextView
-            android:text="@string/dont_have_an_account_register_now"
             android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/tiny"
             android:padding="@dimen/small"
+            android:text="@string/dont_have_an_account_register_now"
             android:textSize="@dimen/text_14sp" />
 
     </LinearLayout>

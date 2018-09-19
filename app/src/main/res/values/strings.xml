@@ -31,4 +31,12 @@
     <string name="topup">Isi Saldo</string>
     <string name="exchange">Tukar</string>
     <string name="digital_product">Produk Digital</string>
+    <string name="please_insert_email">Please insert your email</string>
+    <string name="please_insert_phone">Please insert your phone number</string>
+    <string name="please_insert_valid_email">Please insert an valid email</string>
+    <string name="please_insert_valid_name">Name must be at least 3 characters</string>
+    <string name="please_insert_valid_phone">Phone must be at least 10 characters</string>
+    <string name="please_insert_valid_password">Password must be at least 6 characters</string>
+    <string name="dialog_ok">Ok</string>
+    <string name="passwords_dont_match">Passwords do not match</string>
 </resources>
