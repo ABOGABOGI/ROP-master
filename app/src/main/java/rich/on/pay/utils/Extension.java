@@ -1,6 +1,5 @@
 package rich.on.pay.utils;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,11 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,7 +25,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -43,7 +38,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import rich.on.pay.App;
 import rich.on.pay.R;
 
 public class Extension {

@@ -1,124 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:orientation="vertical">
+    android:background="@color/background">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <com.youth.banner.Banner
-            android:id="@+id/banner"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            app:indicator_drawable_selected="@drawable/indicator_color"
-            app:indicator_drawable_unselected="@drawable/indicator_color_off"
-            app:indicator_height="@dimen/tiny"
-            app:indicator_width="@dimen/tiny" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.7"
-            android:orientation="vertical">
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                app:indicator_drawable_selected="@drawable/indicator_color"
+                app:indicator_drawable_unselected="@drawable/indicator_color_off"
+                app:indicator_height="@dimen/tiny"
+                app:indicator_width="@dimen/tiny" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/packageDark"
-                android:orientation="horizontal"
-                android:padding="@dimen/tiny">
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_16sp" />
-
-                <TextView
-                    android:id="@+id/tvPackage"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:alpha="70"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white" />
+                    android:background="@color/packageDark"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/tiny">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_16sp" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabIndicatorHeight="@dimen/pv_pin_view_item_radius"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextColor="@color/textGrey" />
+                    <TextView
+                        android:id="@+id/tvPackage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="70"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:gravity="center|start"
-                android:orientation="horizontal"
-                android:padding="@dimen/tiny"
-                android:weightSum="1">
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivBalance"
-                    android:layout_width="wrap_content"
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/wallet" />
+                    android:background="@android:color/white"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabIndicatorHeight="@dimen/pv_pin_view_item_radius"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextColor="@color/textGrey" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center|start"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/tiny"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:id="@+id/ivBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/wallet" />
+
+                    <TextView
+                        android:id="@+id/tvBalance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingEnd="@dimen/tiny"
+                        android:paddingStart="@dimen/tiny"
+                        android:textSize="@dimen/text_20sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnBalanceAction"
+                        style="@style/RoundedRedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/mlarge"
+                        android:text="@string/topup"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvBalance"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingEnd="@dimen/tiny"
-                    android:paddingStart="@dimen/tiny"
-                    android:textSize="@dimen/text_20sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnBalanceAction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="@dimen/mlarge"
-                    android:text="@string/topup"
-                    android:textStyle="bold" />
+                    android:paddingEnd="@dimen/tiny"
+                    android:paddingStart="@dimen/tiny"
+                    android:paddingTop="@dimen/small"
+                    android:text="@string/digital_product" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="true" />
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/tiny"
-                android:paddingStart="@dimen/tiny"
-                android:paddingTop="@dimen/small"
-                android:text="@string/digital_product" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:isScrollContainer="true" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-</ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -135,7 +135,9 @@
             android:value="8fccacd91ed3cae596b7d1d6cd972cd35a791d9a" />
 
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.VerifyOTPActivity" />
+        <activity android:name=".activity.PackageActivity"></activity>
     </application>
 
 </manifest>

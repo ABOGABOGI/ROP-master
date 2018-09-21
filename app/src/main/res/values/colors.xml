@@ -8,6 +8,12 @@
     <color name="background">#EEEEEE</color>
     <color name="textGrey">#757575</color>
     <color name="packageDark">#1C1A19</color>
+    <color name="packageSilver">#878787</color>
+    <color name="packageSilverBackground">#C4C4C4</color>
+    <color name="packageGold">#F89D00</color>
+    <color name="packageGoldBackground">#FFC96D</color>
+    <color name="packagePlatinum">#011640</color>
+    <color name="packagePlatinumBackground">#414958</color>
 
     <color name="updatedBackground">#EFEFF4</color>
     <color name="updatedYellow">#FEB228</color>
