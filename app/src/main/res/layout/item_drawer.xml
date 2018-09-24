@@ -17,7 +17,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="end"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@null" />
 
     </FrameLayout>
 

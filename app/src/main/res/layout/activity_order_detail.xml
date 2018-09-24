@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/tiny"
+                android:layout_marginStart="@dimen/tiny"
+                android:layout_marginTop="@dimen/tiny"
+                android:background="@drawable/rounded_corner_white"
+                android:orientation="vertical"
+                android:padding="@dimen/small">
+
+                <TextView
+                    android:id="@+id/tvTransactionCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tiny"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|start"
+                        android:textSize="@dimen/text_16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/status_waiting"
+                        android:gravity="center"
+                        android:padding="@dimen/tiny"
+                        android:paddingEnd="@dimen/small"
+                        android:paddingStart="@dimen/small"
+                        android:text="@string/waiting"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tiny"
+                    android:textColor="@color/textGrey" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/tiny"
+                android:layout_marginStart="@dimen/tiny"
+                android:layout_marginTop="@dimen/tiny"
+                android:background="@drawable/rounded_corner_white"
+                android:orientation="vertical"
+                android:padding="@dimen/small">
+
+                <TextView
+                    android:id="@+id/tvTransferBefore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvRemainingTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tiny"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/tiny"
+                android:layout_marginStart="@dimen/tiny"
+                android:layout_marginTop="@dimen/tiny"
+                android:background="@drawable/rounded_corner_white"
+                android:orientation="vertical"
+                android:padding="@dimen/small">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_payment" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tiny"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tiny"
+                        android:text="@string/rupiah" />
+
+                    <TextView
+                        android:id="@+id/tvTotalPayment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tiny"
+                        android:textSize="@dimen/text_20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tiny"
+                    android:text="@string/pastikan_jumlah_transfer_tepat_hingga_3_digit_terakhir"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/tiny"
+                android:layout_marginStart="@dimen/tiny"
+                android:layout_marginTop="@dimen/tiny"
+                android:background="@drawable/rounded_corner_white"
+                android:orientation="vertical"
+                android:padding="@dimen/small">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:gravity="center|start"
+                        android:text="@string/transfer_to" />
+
+                    <ImageView
+                        android:id="@+id/ivBankLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:contentDescription="@null" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvBankAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tiny"
+                    android:textSize="@dimen/text_20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAccountOwner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal"
+                android:gravity="center"
+                android:text="@string/klik_tombol_dibawah_ini_setelah_menyelesaikan_pembayaran" />
+
+            <Button
+                android:id="@+id/btnConfirmation"
+                style="@style/RoundedRedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/tiny"
+                android:text="@string/saya_sudah_bayar"
+                android:textSize="@dimen/text_16sp" />
+
+            <TextView
+                android:id="@+id/tvCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/tiny"
+                android:background="@color/background"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:gravity="center"
+                android:padding="@dimen/tiny"
+                android:text="@string/cancel_it"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

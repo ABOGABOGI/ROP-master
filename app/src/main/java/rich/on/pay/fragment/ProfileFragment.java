@@ -2,22 +2,34 @@ package rich.on.pay.fragment;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import rich.on.pay.R;
+import rich.on.pay.activity.AccountSettingActivity;
 import rich.on.pay.activity.MainActivity;
+import rich.on.pay.activity.MutationBalanceActivity;
 import rich.on.pay.activity.PackageActivity;
+import rich.on.pay.adapter.ItemListAdapter;
 import rich.on.pay.api.API;
 import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.BaseFragment;
 import rich.on.pay.model.APIModels;
+import rich.on.pay.model.ItemList;
+import rich.on.pay.utils.Extension;
 
 public class ProfileFragment extends BaseFragment implements MainActivity.OnAccountTabListener {
 
@@ -69,6 +81,55 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
                     mActivity.fetchProfile();
                 }
             });
+
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+
+            float calculatedSize = width / 14f;
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Integer.parseInt(String.valueOf(Math.round(calculatedSize))), Integer.parseInt(String.valueOf(Math.round(calculatedSize))));
+            layoutParams.gravity = Gravity.CENTER;
+            ivBonusMutation.setLayoutParams(layoutParams);
+            ivPointMutation.setLayoutParams(layoutParams);
+
+            Extension.setImage(getActivity(), ivBonusMutation, R.drawable.bonus_mutation);
+            Extension.setImage(getActivity(), ivPointMutation, R.drawable.point);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            ItemListAdapter mAdapter = new ItemListAdapter(getActivity(), new ItemListAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(View view, int position, ItemList exploreCategory) {
+                    switch (position) {
+                        case 0:  //  BALANCE MUTATION
+                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
+                            break;
+                        case 1:  //  ACCOUNT VERIFICATION
+//                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
+                            break;
+                        case 2:  //  NETWORK
+//                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
+                            break;
+                        case 3:  //  ACCOUNT SETTING
+                            startActivity(new Intent(getActivity(),  AccountSettingActivity.class));
+                            break;
+                        case 4:  //  INFORMATION
+//                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            recyclerView.setAdapter(mAdapter);
+
+            List<ItemList> accountMenu = new ArrayList<>();
+            accountMenu.add(new ItemList(R.drawable.balance_mutation, getString(R.string.balance_mutation)));
+            accountMenu.add(new ItemList(R.drawable.verify_account, getString(R.string.verify_user_data)));
+            accountMenu.add(new ItemList(R.drawable.network, getString(R.string.network)));
+            accountMenu.add(new ItemList(R.drawable.account_setting, getString(R.string.account_setting)));
+            accountMenu.add(new ItemList(R.drawable.information, getString(R.string.information)));
+            mAdapter.setItems(accountMenu);
+
         } catch (Exception exception) {
             Log.e("onViewCreated", "" + exception);
         }
@@ -110,7 +171,7 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
                 case 2:
                     tvPackage.setText(R.string.gold_member);
                     break;
-                case 4:
+                case 3:
                     tvPackage.setText(R.string.platinum_member);
                     break;
             }

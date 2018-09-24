@@ -13,11 +13,14 @@
     </style>
 
     <style name="DefaultButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/rounded_primary_button</item>
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="RoundedRedButton" parent="Widget.AppCompat.Button">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/rounded_primary_button</item>
         <item name="android:textAllCaps">true</item>

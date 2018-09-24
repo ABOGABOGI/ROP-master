@@ -1,5 +1,6 @@
 package rich.on.pay.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import rich.on.pay.R;
 import rich.on.pay.activity.MainActivity;
+import rich.on.pay.activity.TopupAmountSelectionActivity;
 import rich.on.pay.adapter.ProductPaymentAdapter;
 import rich.on.pay.api.API;
 import rich.on.pay.api.BadRequest;
@@ -139,6 +142,15 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
         }
     }
 
+    @OnClick(R.id.btnBalanceAction)
+    void balanceAction(){
+        if (btnBalanceAction.getText().toString().matches(getString(R.string.topup))){
+            startActivity(new Intent(getActivity(), TopupAmountSelectionActivity.class));
+        } else {
+
+        }
+    }
+
     @Override
     public void refreshProfile() {
         swipeRefresh.setRefreshing(false);
@@ -211,7 +223,7 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
                 case 2:
                     tvPackage.setText(R.string.gold_member);
                     break;
-                case 4:
+                case 3:
                     tvPackage.setText(R.string.platinum_member);
                     break;
             }

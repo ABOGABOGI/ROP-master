@@ -14,6 +14,8 @@
     <color name="packageGoldBackground">#FFC96D</color>
     <color name="packagePlatinum">#011640</color>
     <color name="packagePlatinumBackground">#414958</color>
+    <color name="statusSuccess">#26C521</color>
+    <color name="statusProcess">#28A1FE</color>
 
     <color name="updatedBackground">#EFEFF4</color>
     <color name="updatedYellow">#FEB228</color>
