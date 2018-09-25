@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/small"
+            android:paddingTop="@dimen/small">
+
+            <TextView
+                android:id="@+id/tvContentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small"
+                android:layout_marginStart="@dimen/small"
+                android:layout_marginTop="@dimen/tiny"
+                android:gravity="center"
+                android:textColor="@color/textGrey" />
+
+            <TextView
+                android:id="@+id/tvBonusAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tiny"
+                android:layout_marginEnd="@dimen/small"
+                android:layout_marginStart="@dimen/small"
+                android:gravity="center"
+                android:textSize="@dimen/text_20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvBonusDisbursement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small"
+                android:layout_marginStart="@dimen/small"
+                android:background="@color/roundedGreyBorder"
+                android:gravity="center"
+                android:padding="@dimen/tiny"
+                android:text="@string/pencairan_bonus_setiap_tanggal_25_perbulan_dikirim_ke_rekening_utama_pada_akun"
+                android:textAlignment="center"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/llPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/tiny"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_color" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/tiny"
+                    android:layout_marginEnd="@dimen/small"
+                    android:layout_marginStart="@dimen/small"
+                    android:gravity="center"
+                    android:text="@string/tampilkan_periode"
+                    android:textColor="@color/textGrey" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/small"
+                    android:layout_marginStart="@dimen/small"
+                    android:orientation="horizontal"
+                    android:weightSum="2.1">
+
+                    <TextView
+                        android:id="@+id/tvStartDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_white_with_black_corner"
+                        android:drawableEnd="@drawable/dropdown_red"
+                        android:padding="@dimen/tiny"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/tiny"
+                        android:layout_marginStart="@dimen/tiny"
+                        android:layout_weight="0.1"
+                        android:background="@color/roundedBlackBorder"
+                        android:gravity="center"
+                        android:text="@string/dash"
+                        android:textSize="@dimen/text_18sp" />
+
+                    <TextView
+                        android:id="@+id/tvEndDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_white_with_black_corner"
+                        android:drawableEnd="@drawable/dropdown_red"
+                        android:padding="@dimen/tiny"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@drawable/divider"
+            android:paddingTop="@dimen/tiny"
+            android:showDividers="middle" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

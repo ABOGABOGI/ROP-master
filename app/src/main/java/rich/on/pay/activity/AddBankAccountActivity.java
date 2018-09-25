@@ -1,18 +1,11 @@
 package rich.on.pay.activity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,12 +14,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import rich.on.pay.R;
-import rich.on.pay.adapter.StringBankListAdapter;
-import rich.on.pay.api.API;
-import rich.on.pay.api.APICallback;
-import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.ToolbarActivity;
-import rich.on.pay.model.APIResponse;
 import rich.on.pay.model.BankInfo;
 
 public class AddBankAccountActivity extends ToolbarActivity {

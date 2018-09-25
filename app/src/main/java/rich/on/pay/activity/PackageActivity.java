@@ -39,7 +39,7 @@ public class PackageActivity extends ToolbarActivity {
         viewPager.setPageMargin(0);
         viewPager.setOffscreenPageLimit(5);
 
-        // UPDATE WITH API USING LOOPING
+        // UPDATE WITH API USING LOOPING IF API PROVIDES INFO
         // SILVER
         Bundle bundle = new Bundle();
         bundle.putInt("PACKAGE", 0);

@@ -85,6 +85,5 @@ public class PackageFragment extends BaseFragment {
         } catch (Exception exception) {
             Log.e("onViewCreated", "" + exception);
         }
-
     }
 }

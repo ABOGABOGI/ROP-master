@@ -104,6 +104,8 @@
     <string name="set_main_bank_account">Jadikan Rekening Utama</string>
     <string name="balance_mutation">Mutasi Saldo</string>
     <string name="verify_user_data">Verifikasi Data Diri</string>
+    <string name="camera_permission_message">Izin kamera diperlukan untuk mengambil gambar</string>
+    <string name="camera_permission">Izin kamera</string>
     <string name="network">Jaringan</string>
     <string name="account_setting">Pengaturan Akun</string>
     <string name="information">Informasi</string>
@@ -117,4 +119,23 @@
     <string name="your_phone_number_has_been_successfully_changed_to">Nomor handphone anda berhasil diganti ke</string>
     <string name="your_email_was_successfully_changed_to">Email anda berhasil diganti ke</string>
     <string name="add_account">Tambah Rekening</string>
+    <string name="kartu_tanda_penduduk_ktp">KARTU TANDA PENDUDUK (KTP)</string>
+    <string name="verify_account_bonus_desc">Dengan melakukan verifikasi KTP akun Anda akan dapat melakukan penarikan saldo, mendapatkan bonus point dari transaksi serta cashback reward.</string>
+    <string name="verify_now">Verifikasi Sekarang</string>
+    <string name="ongoing">Sedang Diproses</string>
+    <string name="successful">Berhasil</string>
+    <string name="send">Kirim</string>
+    <string name="retake_photo">Ulang Foto</string>
+    <string name="pastikan_seluruh_foto_ktp_di_daerah_kotak_yang_telah_disediakan_dan_terlihat_jelas">Pastikan seluruh foto KTP di daerah kotak yang telah disediakan dan terlihat jelas.</string>
+    <string name="foto_ktp">Foto KTP</string>
+    <string name="pencairan_bonus_setiap_tanggal_25_perbulan_dikirim_ke_rekening_utama_pada_akun">Pencairan bonus setiap tanggal 25 perbulan, dikirim ke rekening utama pada akun.</string>
+    <string name="dash">-</string>
+    <string name="tampilkan_periode">Tampilkan Periode</string>
+    <string name="pending">Pending</string>
+    <string name="your_total_pending_bonus">Total Bonus Pending Anda</string>
+    <string name="total_successful_bonus">Total Bonus Berhasil</string>
+    <string name="your_total_point">Total Poin Anda</string>
+    <string name="your_total_balance">Total Saldo Anda</string>
+    <string name="done">Selesai</string>
+    <string name="select_a_date">Pilih Tanggal</string>
 </resources>

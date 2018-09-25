@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.parceler.Parcels;
 
@@ -25,13 +24,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rich.on.pay.R;
 import rich.on.pay.adapter.BankListAdapter;
-import rich.on.pay.api.API;
-import rich.on.pay.api.APICallback;
-import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.ToolbarActivity;
-import rich.on.pay.model.APIResponse;
 import rich.on.pay.model.BankAccount;
-import rich.on.pay.utils.Extension;
 
 public class UserBankAccountActivity extends ToolbarActivity {
 

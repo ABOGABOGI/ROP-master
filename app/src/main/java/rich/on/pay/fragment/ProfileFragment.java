@@ -21,8 +21,9 @@ import butterknife.OnClick;
 import rich.on.pay.R;
 import rich.on.pay.activity.AccountSettingActivity;
 import rich.on.pay.activity.MainActivity;
-import rich.on.pay.activity.MutationBalanceActivity;
+import rich.on.pay.activity.MutationActivity;
 import rich.on.pay.activity.PackageActivity;
+import rich.on.pay.activity.VerifyUserAccountActivity;
 import rich.on.pay.adapter.ItemListAdapter;
 import rich.on.pay.api.API;
 import rich.on.pay.api.BadRequest;
@@ -30,6 +31,10 @@ import rich.on.pay.base.BaseFragment;
 import rich.on.pay.model.APIModels;
 import rich.on.pay.model.ItemList;
 import rich.on.pay.utils.Extension;
+
+import static rich.on.pay.activity.MutationActivity.TYPE_BALANCE;
+import static rich.on.pay.activity.MutationActivity.TYPE_BONUS;
+import static rich.on.pay.activity.MutationActivity.TYPE_POINT;
 
 public class ProfileFragment extends BaseFragment implements MainActivity.OnAccountTabListener {
 
@@ -101,16 +106,18 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
                 public void onClick(View view, int position, ItemList exploreCategory) {
                     switch (position) {
                         case 0:  //  BALANCE MUTATION
-                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
+                            Intent balanceIntent = new Intent(getActivity(), MutationActivity.class);
+                            balanceIntent.putExtra("TYPE", TYPE_BALANCE);
+                            startActivity(balanceIntent);
                             break;
                         case 1:  //  ACCOUNT VERIFICATION
-//                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
+                            startActivity(new Intent(getActivity(), VerifyUserAccountActivity.class));
                             break;
                         case 2:  //  NETWORK
 //                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
                             break;
                         case 3:  //  ACCOUNT SETTING
-                            startActivity(new Intent(getActivity(),  AccountSettingActivity.class));
+                            startActivity(new Intent(getActivity(), AccountSettingActivity.class));
                             break;
                         case 4:  //  INFORMATION
 //                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
@@ -138,6 +145,20 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
     @OnClick(R.id.btnUpgradePackage)
     void upgradePackage() {
         startActivity(new Intent(getActivity(), PackageActivity.class));
+    }
+
+    @OnClick(R.id.llBonusMutation)
+    void redirectBonusMutation() {
+        Intent balanceIntent = new Intent(getActivity(), MutationActivity.class);
+        balanceIntent.putExtra("TYPE", TYPE_BONUS);
+        startActivity(balanceIntent);
+    }
+
+    @OnClick(R.id.llPointMutation)
+    void redirectPointMutation() {
+        Intent balanceIntent = new Intent(getActivity(), MutationActivity.class);
+        balanceIntent.putExtra("TYPE", TYPE_POINT);
+        startActivity(balanceIntent);
     }
 
     @Override

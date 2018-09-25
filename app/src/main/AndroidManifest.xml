@@ -141,7 +141,7 @@
         <activity android:name=".activity.TopupAmountSelectionActivity" />
         <activity android:name=".activity.TopupBankSelectionActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
-        <activity android:name=".activity.MutationBonusActivity" />
+        <activity android:name=".activity.MutationActivity" />
         <activity android:name=".activity.MutationPointActivity" />
         <activity android:name=".activity.MutationBalanceActivity" />
         <activity android:name=".activity.IdentitiyVerificationActivity" />
@@ -150,6 +150,8 @@
         <activity android:name=".activity.ChangePhoneEmailActivity" />
         <activity android:name=".activity.UserBankAccountActivity" />
         <activity android:name=".activity.AddBankAccountActivity" />
+        <activity android:name=".activity.VerifyUserAccountActivity" />
+        <activity android:name=".activity.CameraResultActivity"></activity>
     </application>
 
 </manifest>

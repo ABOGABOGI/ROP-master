@@ -1,13 +1,8 @@
 package rich.on.pay.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.text.InputType;
-import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,8 +14,8 @@ import rich.on.pay.utils.Extension;
 
 public class ChangePhoneEmailActivity extends ToolbarActivity {
 
-    public static int PHONE = 10020;
-    public static int EMAIL = 10021;
+    final public static int PHONE = 10020;
+    final public static int EMAIL = 10021;
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;

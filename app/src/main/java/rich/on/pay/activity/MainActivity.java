@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -47,7 +46,7 @@ public class MainActivity extends ToolbarActivity {
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
 
-    public static final String FIREBASE_TOKEN = "FIREBASE_TOKEN";
+    final public static String FIREBASE_TOKEN = "FIREBASE_TOKEN";
     private boolean doubleBackToExitPressedOnce = false;
     private OnAccountTabListener mAccountTabListener;
     private OnHomeTabListener mHomeTabListener;
