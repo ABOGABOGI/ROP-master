@@ -1,8 +1,11 @@
 package rich.on.pay.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -14,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
@@ -26,22 +28,23 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rich.on.pay.R;
 import rich.on.pay.activity.MainActivity;
-import rich.on.pay.activity.TopupAmountSelectionActivity;
+import rich.on.pay.activity.WebViewActivity;
 import rich.on.pay.adapter.ProductPaymentAdapter;
 import rich.on.pay.api.API;
 import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.BaseFragment;
 import rich.on.pay.model.APIModels;
+import rich.on.pay.model.Banner;
 import rich.on.pay.model.PaymentProduct;
 import rich.on.pay.utils.BannerImageLoader;
 import rich.on.pay.utils.Extension;
 
-public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTabListener{
+public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTabListener {
 
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.banner)
-    Banner banner;
+    com.youth.banner.Banner banner;
     @BindView(R.id.tvName)
     TextView tvName;
     @BindView(R.id.tvPackage)
@@ -58,7 +61,9 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
     RecyclerView recyclerView;
 
     private ProductPaymentAdapter mAdapter;
+    private int selectedBalanceTab = 0;
     private MainActivity mActivity;
+    private List<Banner> bannerList = new ArrayList<>();
 
     @Override
     protected int getContentViewResource() {
@@ -75,8 +80,10 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
                 @Override
                 public void onRefresh() {
                     mActivity.fetchProfile();
+                    mActivity.getHomeBanner();
                 }
             });
+            mActivity.getHomeBanner();
 
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -93,9 +100,10 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
+                    selectedBalanceTab = tab.getPosition();
                     Extension.setImage(getActivity(), ivBalance, (tab.getPosition() == 0 ? R.drawable.wallet : R.drawable.point));
-                    tvBalance.setText((tab.getPosition() == 0 ? String.valueOf("Rp 1.000.000") : String.valueOf("10.000")));
-                    btnBalanceAction.setText((tab.getPosition() == 0 ? getString(R.string.topup) : getString(R.string.point)));
+                    tvBalance.setText((selectedBalanceTab == 0 ? Extension.priceFormat(API.currentUser().getWallets().get(0).getBalance()) : Extension.numberPriceFormat(API.currentUser().getWallets().get(2).getBalance())));
+                    btnBalanceAction.setText((tab.getPosition() == 0 ? getString(R.string.topup) : getString(R.string.exchange)));
                 }
 
                 @Override
@@ -114,25 +122,27 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
             mAdapter = new ProductPaymentAdapter(getActivity(), new ProductPaymentAdapter.OnItemClickListener() {
                 @Override
                 public void onClick(View view, int id, int category) {
-                    switch (category) {
-                        case 0:
+//                    switch (category) {
+//                        case 0:
+//
+//                            break;
+//                        case 1:
+//
+//                            break;
+//                        case 2:
+//
+//                            break;
+//                        case 3:
+//
+//                            break;
+//                        case 4:
+//
+//                            break;
+//                        default:
+//                            break;
+//                    }
+                    comingSoonDialog();
 
-                            break;
-                        case 1:
-
-                            break;
-                        case 2:
-
-                            break;
-                        case 3:
-
-                            break;
-                        case 4:
-
-                            break;
-                        default:
-                            break;
-                    }
                 }
             });
             recyclerView.setAdapter(mAdapter);
@@ -143,12 +153,12 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
     }
 
     @OnClick(R.id.btnBalanceAction)
-    void balanceAction(){
-        if (btnBalanceAction.getText().toString().matches(getString(R.string.topup))){
-            startActivity(new Intent(getActivity(), TopupAmountSelectionActivity.class));
-        } else {
-
-        }
+    void balanceAction() {
+//        if (btnBalanceAction.getText().toString().matches(getString(R.string.topup))) {
+//            startActivity(new Intent(getActivity(), TopupAmountSelectionActivity.class));
+//        } else {
+        comingSoonDialog();
+//        }
     }
 
     @Override
@@ -159,48 +169,40 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
 
     @Override
     public void onDataReceived(APIModels response) {
-        List<String> images = new ArrayList<>();
-        images.add("https://mareco.s3.ap-southeast-1.amazonaws.com/images/1536749855_KkNZJepOF75RDa3.jpeg");
-        images.add("http://s3.amazonaws.com/newlife-images/photos/_1300x600_crop_top-center_75/Reaching-Gods-Goal-in-2015.jpg");
-        images.add("https://betterandfree.co/wp-content/uploads/2018/01/2018_New_Year.jpeg");
-        images.add("https://mareco.s3.ap-southeast-1.amazonaws.com/images/1531194516_DX4jIfqN4D3XTPi.jpeg");
-
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        // set the image loader
-        banner.setImageLoader(new BannerImageLoader());
-        //Set the picture collection
-        banner.setImages(images);
-        //Set banner animation
-        banner.setBannerAnimation(Transformer.Default);
-        // set the automatic rotation, the default is to true
-        banner.isAutoPlay(true);
-        // Set rotation time
-        banner.setDelayTime(10000);
-        // set the pointer position (when there banner mode indicator)
-        banner.start();
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-
+        try {
+            bannerList = response.getBanners();
+            List<String> images = new ArrayList<>();
+            for (Banner banner : bannerList) {
+                images.add(banner.getCoverUrl());
             }
-        });
 
-        List<PaymentProduct> paymentProducts = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            PaymentProduct ppob = new PaymentProduct();
-
-            if (i == 0) {
-                ppob.setProduct("Pulsa");
-            } else if (i == 1) {
-                ppob.setProduct("Listrik");
-            } else {
-                ppob.setProduct("Voucher Game");
-            }
-            paymentProducts.add(ppob);
+            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+            banner.setIndicatorGravity(BannerConfig.CENTER);
+            // set the image loader
+            banner.setImageLoader(new BannerImageLoader());
+            //Set the picture collection
+            banner.setImages(images);
+            //Set banner animation
+            banner.setBannerAnimation(Transformer.Default);
+            // set the automatic rotation, the default is to true
+            banner.isAutoPlay(true);
+            // Set rotation time
+            banner.setDelayTime(10000);
+            // set the pointer position (when there banner mode indicator)
+            banner.start();
+            banner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                    intent.putExtra("TYPE", WebViewActivity.WEBVIEW_TYPE[1]);
+                    intent.putExtra("TITLE", String.valueOf(bannerList.get(position).getTitle()));
+                    intent.putExtra("WEBVIEW_URL", String.valueOf(bannerList.get(position).getShareUrl()));
+                    startActivity(intent);
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("ONRECEIVE_BANNER", "" + exception);
         }
-
-        mAdapter.setItems(paymentProducts);
     }
 
     @Override
@@ -208,10 +210,9 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
 
     }
 
-    private void setProfile(){
+    private void setProfile() {
         try {
-//            tvName.setText(API.currentUser().getFullname());
-            tvName.setText("ADE KAM KAM");
+            tvName.setText(API.currentUser().getFullname());
 
             switch (API.currentUser().getPackages()) {
                 case 0:
@@ -227,8 +228,44 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
                     tvPackage.setText(R.string.platinum_member);
                     break;
             }
+
+            Extension.setImage(getActivity(), ivBalance, (selectedBalanceTab == 0 ? R.drawable.wallet : R.drawable.point));
+            tvBalance.setText((selectedBalanceTab == 0 ? Extension.priceFormat(API.currentUser().getWallets().get(0).getBalance()) : Extension.numberPriceFormat(API.currentUser().getWallets().get(2).getBalance())));
+            btnBalanceAction.setText((selectedBalanceTab == 0 ? getString(R.string.topup) : getString(R.string.exchange)));
+
+            List<PaymentProduct> paymentProducts = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                PaymentProduct ppob = new PaymentProduct();
+
+                if (i == 0) {
+                    ppob.setProduct("Pulsa");
+                } else if (i == 1) {
+                    ppob.setProduct("Listrik");
+                } else {
+                    ppob.setProduct("Voucher Game");
+                }
+                paymentProducts.add(ppob);
+            }
+
+            mAdapter.setItems(paymentProducts);
+
         } catch (Exception exception) {
             Log.e("setProfile HOME", "" + exception);
         }
+    }
+
+    private void comingSoonDialog() {
+        AlertDialog cameraDialog = new AlertDialog.Builder(getActivity()).create();
+        cameraDialog.setCanceledOnTouchOutside(false);
+        cameraDialog.setTitle(getString(R.string.coming_soon));
+        cameraDialog.setMessage(getString(R.string.this_feature_is_still_on_development));
+        cameraDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.oke),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        cameraDialog.show();
+        cameraDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
     }
 }

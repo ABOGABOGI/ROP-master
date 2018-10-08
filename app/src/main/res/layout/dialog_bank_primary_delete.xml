@@ -34,7 +34,7 @@
             android:layout_gravity="center|start"
             android:layout_marginStart="@dimen/small"
             android:gravity="center|start"
-            android:text="@string/app_name"
+            android:text="@string/set_main_bank_account"
             android:textSize="@dimen/text_14sp" />
 
     </LinearLayout>

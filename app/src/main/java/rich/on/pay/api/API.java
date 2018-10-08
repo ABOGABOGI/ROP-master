@@ -217,6 +217,8 @@ public class API {
         boolean didSkipIntro = App.didntSkipIntro();
 
         App.isAuthorized = false;
+        API.setToken("");
+        API.setUser(null);
         Hawk.deleteAll();
 
         App.setdidntSkipIntro(didSkipIntro);

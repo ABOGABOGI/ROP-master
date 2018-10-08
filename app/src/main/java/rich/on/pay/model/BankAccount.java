@@ -19,8 +19,16 @@ public class BankAccount {
     @SerializedName("is_primary")
     private int isPrimary;
     private BankInfo bank;
-    @SerializedName("bank_detail")
-    private BankInfo bankDetail;
+
+    public BankAccount() {
+    }
+
+    public BankAccount(int bankID, String accountName, String accountNo, int isPrimary) {
+        this.bankID = bankID;
+        this.accountName = accountName;
+        this.accountNo = accountNo;
+        this.isPrimary = isPrimary;
+    }
 
     public String getAccountName() {
         return accountName;
@@ -84,13 +92,5 @@ public class BankAccount {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public BankInfo getBankDetail() {
-        return bankDetail;
-    }
-
-    public void setBankDetail(BankInfo bankDetail) {
-        this.bankDetail = bankDetail;
     }
 }

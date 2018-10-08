@@ -30,7 +30,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tiny"
+                android:layout_marginTop="@dimen/pv_pin_view_item_radius"
                 android:orientation="horizontal">
 
                 <TextView
@@ -38,7 +38,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:gravity="center|start"
                     android:textSize="@dimen/text_16sp" />
 
                 <TextView
@@ -61,7 +62,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tiny"
+                android:layout_marginTop="@dimen/pv_pin_view_item_radius"
                 android:textColor="@color/textGrey" />
 
         </LinearLayout>

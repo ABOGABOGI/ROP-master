@@ -11,9 +11,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import rich.on.pay.R;
 import rich.on.pay.base.BaseAdapter;
-import rich.on.pay.model.PaymentProduct;
+import rich.on.pay.model.UpgradeRequest;
+import rich.on.pay.utils.Extension;
 
-public class OrderAdapter extends BaseAdapter<PaymentProduct, OrderAdapter.ViewHolder> {
+public class OrderAdapter extends BaseAdapter<UpgradeRequest, OrderAdapter.ViewHolder> {
     private final OrderAdapter.OnItemClickListener mListener;
     private Activity context;
 
@@ -30,15 +31,49 @@ public class OrderAdapter extends BaseAdapter<PaymentProduct, OrderAdapter.ViewH
     @Override
     public void onBindViewHolder(@NonNull final OrderAdapter.ViewHolder holder, int position) {
         try {
-            final PaymentProduct item = getItem(position);
-//            holder.tvTitle.setText(item.getProduct());
-//            holder.tvDate.setText(item.getProduct());
-//            holder.tvMessage.setText(item.getProduct());
+            final UpgradeRequest item = getItem(position);
+            holder.tvTransactionCode.setText(String.valueOf(context.getString(R.string.transaction_code) + " " + item.getCode()));
+            holder.tvAmount.setText(Extension.priceFormat(item.getPrice()));
+            holder.tvDate.setText(Extension.receiptDetailDateFormat.format(item.getCreatedAt()));
+
+            switch (item.getStatus()) {
+                case UpgradeRequest.PENDING:
+                    holder.tvStatus.setText(context.getString(R.string.waiting));
+                    holder.tvStatus.setBackgroundResource(R.drawable.status_waiting);
+                    break;
+
+                case UpgradeRequest.ON_PROCESS:
+                    holder.tvStatus.setText(context.getString(R.string.processing_allcaps));
+                    holder.tvStatus.setBackgroundResource(R.drawable.status_process);
+                    break;
+
+                case UpgradeRequest.ACCEPTED:
+                    holder.tvStatus.setText(context.getString(R.string.successful));
+                    holder.tvStatus.setBackgroundResource(R.drawable.status_success);
+                    break;
+
+                case UpgradeRequest.DECLINED:
+                    holder.tvStatus.setText(context.getString(R.string.declined_allcaps));
+                    holder.tvStatus.setBackgroundResource(R.drawable.status_waiting);
+                    break;
+
+                case UpgradeRequest.CANCELLED:
+                    holder.tvStatus.setText(context.getString(R.string.cancel_allcaps));
+                    holder.tvStatus.setBackgroundResource(R.drawable.status_waiting);
+                    break;
+
+                case UpgradeRequest.REFUNDED:
+                    holder.tvStatus.setText(context.getString(R.string.refund_allcaps));
+                    holder.tvStatus.setBackgroundResource(R.drawable.status_process);
+                    break;
+                default:
+                    break;
+            }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onClick(v, item.getId(), item.getProductCode());
+                    mListener.onClick(v, item.getId(), item);
                 }
             });
         } catch (Exception exception) {
@@ -63,6 +98,6 @@ public class OrderAdapter extends BaseAdapter<PaymentProduct, OrderAdapter.ViewH
     }
 
     public interface OnItemClickListener {
-        void onClick(View view, int id, int category);
+        void onClick(View view, int id, UpgradeRequest upgradeRequest);
     }
 }

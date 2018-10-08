@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.parceler.Parcels;
 
@@ -24,8 +26,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rich.on.pay.R;
 import rich.on.pay.adapter.BankListAdapter;
+import rich.on.pay.api.API;
+import rich.on.pay.api.APICallback;
+import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.ToolbarActivity;
+import rich.on.pay.model.APIResponse;
 import rich.on.pay.model.BankAccount;
+import rich.on.pay.utils.Extension;
 
 public class UserBankAccountActivity extends ToolbarActivity {
 
@@ -78,90 +85,121 @@ public class UserBankAccountActivity extends ToolbarActivity {
             @Override
             public void onClick(View view, int position, final BankAccount selectedBank) {
                 try {
-                    if (isCashier) {
-//                        Intent intent = new Intent();
-//                        intent.putExtra("SELECTED_INDEX", position);
-//                        setResult(AccountFragment.PROFILE_BACKPRESS, intent);
-//                        finish();
-                    } else if (withdrawRequest) {
-//                        WithdrawRequestFragment.selectedBank = selectedBank;
-                        Intent intent = new Intent();
-//                        setResult(WithdrawRequestFragment.SELECTBANK, intent);
-                        finish();
-                    } else {
-                        if (selectedBank.getIsPrimary() != 1) {
-                            View bottomSheetView = getLayoutInflater().inflate(R.layout.dialog_bank_primary_delete, null);
-                            bottomSheetDialog = new BottomSheetDialog(UserBankAccountActivity.this, R.style.darkPopupAnimation);
-                            bottomSheetDialog.setContentView(bottomSheetView);
-                            bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
-                            bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback);
+                    if (selectedBank.getIsPrimary() != 1) {
+                        View bottomSheetView = getLayoutInflater().inflate(R.layout.dialog_bank_primary_delete, null);
+                        bottomSheetDialog = new BottomSheetDialog(UserBankAccountActivity.this, R.style.darkPopupAnimation);
+                        bottomSheetDialog.setContentView(bottomSheetView);
+                        bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
+                        bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback);
 
-                            LinearLayout llSetMain = bottomSheetDialog.findViewById(R.id.llSetMain);
-                            LinearLayout llDelete = bottomSheetDialog.findViewById(R.id.llDelete);
+                        LinearLayout llSetMain = bottomSheetDialog.findViewById(R.id.llSetMain);
+                        LinearLayout llDelete = bottomSheetDialog.findViewById(R.id.llDelete);
 
-                            if (llSetMain != null) {
-                                llSetMain.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-//                                        Extension.showLoading(UserBankAccountActivity.this);
-//                                        API.service().setPrimaryBankAccount(selectedBank.getId()).enqueue(new APICallback<APIResponse>(UserBankAccountActivity.this) {
-//                                            @Override
-//                                            protected void onSuccess(APIResponse response) {
-//                                                bottomSheetDialog.dismiss();
-//                                                Extension.dismissLoading();
-//                                                getBankAccount();
-//                                            }
-//
-//                                            @Override
-//                                            protected void onError(BadRequest error) {
-//                                                Extension.dismissLoading();
-//                                                Toast.makeText(UserBankAccountActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        });
-                                    }
-                                });
-                            }
-
-                            if (llDelete != null) {
-                                llDelete.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-//                                        Extension.showLoading(UserBankAccountActivity.this);
-//                                        API.service().removeBankAccount(selectedBank.getId()).enqueue(new APICallback<APIResponse>(UserBankAccountActivity.this) {
-//                                            @Override
-//                                            protected void onSuccess(APIResponse response) {
-//                                                bottomSheetDialog.dismiss();
-//                                                Extension.dismissLoading();
-//                                                getBankAccount();
-//                                            }
-//
-//                                            @Override
-//                                            protected void onError(BadRequest error) {
-//                                                Extension.dismissLoading();
-//                                                Toast.makeText(UserBankAccountActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        });
-                                    }
-                                });
-                            }
-
-                            bottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        if (llSetMain != null) {
+                            llSetMain.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onShow(DialogInterface dialog) {
+                                public void onClick(View view) {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Extension.showLoading(UserBankAccountActivity.this);
+                                        }
+                                    });
 
+                                    API.service().setPrimaryBank(selectedBank.getId()).enqueue(new APICallback<APIResponse>(UserBankAccountActivity.this) {
+                                        @Override
+                                        protected void onSuccess(APIResponse response) {
+                                            bottomSheetDialog.dismiss();
+                                            runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Extension.dismissLoading();
+                                                }
+                                            });
+                                            getBankAccount();
+                                        }
+
+                                        @Override
+                                        protected void onError(BadRequest error) {
+                                            runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Extension.dismissLoading();
+                                                }
+                                            });
+                                            AlertDialog alertDialog = new AlertDialog.Builder(UserBankAccountActivity.this).create();
+                                            alertDialog.setTitle(getString(R.string.sorry));
+                                            alertDialog.setMessage(error.errorDetails);
+                                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            alertDialog.show();
+                                        }
+                                    });
                                 }
                             });
-
-                            bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                                }
-                            });
-
-                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                            bottomSheetDialog.show();
                         }
+
+                        if (llDelete != null) {
+                            llDelete.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Extension.showLoading(UserBankAccountActivity.this);
+                                        }
+                                    });
+                                    API.service().removeBankAccount(selectedBank.getId()).enqueue(new APICallback<APIResponse>(UserBankAccountActivity.this) {
+                                        @Override
+                                        protected void onSuccess(APIResponse response) {
+                                            bottomSheetDialog.dismiss();
+                                            runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Extension.dismissLoading();
+                                                }
+                                            });
+                                            getBankAccount();
+                                        }
+
+                                        @Override
+                                        protected void onError(BadRequest error) {
+                                            runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Extension.dismissLoading();
+                                                }
+                                            });
+                                            AlertDialog alertDialog = new AlertDialog.Builder(UserBankAccountActivity.this).create();
+                                            alertDialog.setTitle(getString(R.string.sorry));
+                                            alertDialog.setMessage(error.errorDetails);
+                                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            alertDialog.show();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        bottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+
+                            }
+                        });
+
+                        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                            }
+                        });
+
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        bottomSheetDialog.show();
                     }
 
                 } catch (Exception exception) {
@@ -171,7 +209,7 @@ public class UserBankAccountActivity extends ToolbarActivity {
         });
         recyclerView.setAdapter(mAdapter);
 
-        if (isCashier){
+        if (isCashier) {
             mAdapter.setItems(cashierBankAccounts);
         }
     }
@@ -190,19 +228,19 @@ public class UserBankAccountActivity extends ToolbarActivity {
     private void getBankAccount() {
         if (!isCashier) {
             swipeRefresh.setRefreshing(true);
-//            API.service().getUserBankAccount().enqueue(new APICallback<APIResponse>(this) {
-//                @Override
-//                protected void onSuccess(APIResponse response) {
-//                    mAdapter.setItems(response.getData().getBankAccounts());
-//                    swipeRefresh.setRefreshing(false);
-//                }
-//
-//                @Override
-//                protected void onError(BadRequest error) {
-//                    Toast.makeText(UserBankAccountActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
-//                    swipeRefresh.setRefreshing(false);
-//                }
-//            });
+            API.service().getUserBankAccount().enqueue(new APICallback<APIResponse>(this) {
+                @Override
+                protected void onSuccess(APIResponse response) {
+                    mAdapter.setItems(response.getData().getBankAccounts());
+                    swipeRefresh.setRefreshing(false);
+                }
+
+                @Override
+                protected void onError(BadRequest error) {
+                    Toast.makeText(UserBankAccountActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
+                    swipeRefresh.setRefreshing(false);
+                }
+            });
         }
     }
 

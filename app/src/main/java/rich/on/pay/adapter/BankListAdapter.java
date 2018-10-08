@@ -33,7 +33,7 @@ public class BankListAdapter extends BaseAdapter<BankAccount, BankListAdapter.Vi
     public void onBindViewHolder(final BankListAdapter.ViewHolder viewHolder, int i) {
         final BankAccount item = getItem(viewHolder.getAdapterPosition());
         viewHolder.tvName.setText(String.valueOf(item.getAccountName()));
-        viewHolder.tvDetail.setText(String.valueOf(item.getAccountNo() + " / " + item.getBankDetail().getAbbr()));
+        viewHolder.tvDetail.setText(String.valueOf(item.getAccountNo() + " / " + item.getBank().getAbbr()));
 
         if (showCheckmark) {
             if (item.getIsPrimary() == 1) {
@@ -45,9 +45,9 @@ public class BankListAdapter extends BaseAdapter<BankAccount, BankListAdapter.Vi
             viewHolder.ivSelected.setVisibility(View.GONE);
         }
 
-        if (item.getBankDetail() != null) {
-            if (item.getBankDetail().getLogoUrl() != null) {
-                Extension.setImageFitCenter(context, viewHolder.ivPhoto, item.getBankDetail().getLogoUrl());
+        if (item.getBank() != null) {
+            if (item.getBank().getCoverUrl() != null) {
+                Extension.setImageFitCenter(context, viewHolder.ivPhoto, item.getBank().getCoverUrl());
             }
         }
 

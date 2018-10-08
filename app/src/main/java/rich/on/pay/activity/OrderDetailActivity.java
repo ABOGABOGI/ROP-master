@@ -1,16 +1,36 @@
 package rich.on.pay.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonElement;
+
+import org.parceler.Parcels;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import rich.on.pay.R;
+import rich.on.pay.api.API;
+import rich.on.pay.api.APICallback;
+import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.ToolbarActivity;
+import rich.on.pay.model.APIResponse;
+import rich.on.pay.model.UpgradeRequest;
 import rich.on.pay.utils.Extension;
 
 public class OrderDetailActivity extends ToolbarActivity {
@@ -42,8 +62,11 @@ public class OrderDetailActivity extends ToolbarActivity {
     @BindView(R.id.tvCancel)
     TextView tvCancel;
 
-    @Override
+    private UpgradeRequest upgradeRequest;
+    public static Timer timer;
+    private TimerTask timerTask;
 
+    @Override
     protected int getContentViewResource() {
         return R.layout.activity_order_detail;
     }
@@ -52,33 +75,225 @@ public class OrderDetailActivity extends ToolbarActivity {
     protected void onViewCreated() {
         tvTitle.setText(R.string.payment);
 
-        tvTransactionCode.setText(String.valueOf("Kode Transaksi: TOP123123"));
-        tvAmount.setText(String.valueOf("Isi Saldo Rp 50.000"));
-        tvStatus.setText(R.string.waiting);
-        tvDate.setText(String.valueOf("21 Sept 2018 - 02:00 PM"));
-        tvTransferBefore.setText(String.valueOf("Transfer sebelum 04:00 AM"));
-        tvRemainingTime.setText(String.valueOf("1 Jam dan 57 Menit lagi"));
-        tvTotalPayment.setText(Extension.numberPriceFormat(50123));
-        tvBankAccount.setText(String.valueOf("0615 867 999"));
-        tvAccountOwner.setText(String.valueOf("PT. MARECO PRIMA MANDIRI"));
+        try {
+            Bundle extra = getIntent().getExtras();
+            if (extra != null) {
+                upgradeRequest = Parcels.unwrap(getIntent().getParcelableExtra("UPGRADE_REQUEST"));
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
+                if (upgradeRequest != null) {
+                    tvTransactionCode.setText(String.valueOf(getString(R.string.transaction_code) + " " + upgradeRequest.getCode()));
+                    tvAmount.setText(Extension.priceFormat(upgradeRequest.getPrice()));
 
-        float calculatedSize = width / 16f;
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Integer.parseInt(String.valueOf(Math.round(calculatedSize))), Integer.parseInt(String.valueOf(Math.round(calculatedSize))));
-        layoutParams.gravity = Gravity.CENTER;
-        ivBankLogo.setLayoutParams(layoutParams);
+                    switch (upgradeRequest.getStatus()) {
+                        case UpgradeRequest.PENDING:
+                            tvStatus.setText(getString(R.string.waiting));
+                            tvStatus.setBackgroundResource(R.drawable.status_waiting);
+                            break;
+
+                        case UpgradeRequest.ON_PROCESS:
+                            tvStatus.setText(getString(R.string.processing_allcaps));
+                            tvStatus.setBackgroundResource(R.drawable.status_process);
+                            break;
+
+                        case UpgradeRequest.ACCEPTED:
+                            tvStatus.setText(getString(R.string.successful));
+                            tvStatus.setBackgroundResource(R.drawable.status_success);
+                            break;
+
+                        case UpgradeRequest.DECLINED:
+                            tvStatus.setText(getString(R.string.declined_allcaps));
+                            tvStatus.setBackgroundResource(R.drawable.status_waiting);
+                            break;
+
+                        case UpgradeRequest.CANCELLED:
+                            tvStatus.setText(getString(R.string.cancel_allcaps));
+                            tvStatus.setBackgroundResource(R.drawable.status_waiting);
+                            break;
+
+                        case UpgradeRequest.REFUNDED:
+                            tvStatus.setText(getString(R.string.refund_allcaps));
+                            tvStatus.setBackgroundResource(R.drawable.status_process);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    tvDate.setText(Extension.receiptDetailDateFormat.format(upgradeRequest.getCreatedAt()));
+                    tvTransferBefore.setText(String.valueOf(getString(R.string.transfer_before) + " " + Extension.sdfAMPMwithSecond.format(upgradeRequest.getCreatedAt())));
+                    tvRemainingTime.setText(Extension.getRemainingTime(OrderDetailActivity.this, upgradeRequest.getExpiredAt()));
+                    tvTotalPayment.setText(Extension.numberPriceFormat(upgradeRequest.getPrice()));
+                    tvBankAccount.setText(upgradeRequest.getVirtual().getBankAccount().getAccountNo());
+                    tvAccountOwner.setText(upgradeRequest.getVirtual().getBankAccount().getAccountName());
+
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                    int width = displayMetrics.widthPixels;
+
+                    float calculatedWidth = width / 8f;
+                    float calculatedHeight = width / 12f;
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Integer.parseInt(String.valueOf(Math.round(calculatedWidth))), Integer.parseInt(String.valueOf(Math.round(calculatedHeight))));
+                    layoutParams.gravity = Gravity.CENTER;
+                    ivBankLogo.setLayoutParams(layoutParams);
+                    Extension.setImageFitCenter(OrderDetailActivity.this, ivBankLogo, upgradeRequest.getVirtual().getBankAccount().getBank().getCoverUrl());
+
+                    try {
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected void onPreExecute() {
+                                super.onPreExecute();
+                            }
+
+                            @Override
+                            protected void onPostExecute(Void aVoid) {
+
+                            }
+
+                            @Override
+                            protected Void doInBackground(Void... voids) {
+                                if (timer != null) {
+                                    timer.cancel();
+                                }
+                                if (timerTask != null) {
+                                    timerTask.cancel();
+                                }
+                                timer = new Timer();
+                                timerTask = new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                tvRemainingTime.setText(Extension.getRemainingTime(OrderDetailActivity.this, upgradeRequest.getExpiredAt()));
+                                            }
+
+                                            @Override
+                                            protected Void doInBackground(Void... voids) {
+                                                return null;
+                                            }
+                                        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                    }
+                                };
+                                timer.schedule(timerTask, 1000, 500);
+                                return null;
+                            }
+                        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } catch (Exception exception) {
+                        Log.e("TIME_REMAINING", "" + exception);
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            Log.e("OrderDetail", "" + exception);
+        }
     }
 
     @OnClick(R.id.btnConfirmation)
     void confirmPayment() {
-
+        onBackPressed();
     }
 
     @OnClick(R.id.tvCancel)
     void tvCancel() {
-        onBackPressed();
+        tvCancel.setEnabled(false);
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Extension.showLoading(OrderDetailActivity.this);
+            }
+        });
+
+        API.service().cancelPackage(upgradeRequest.getId()).enqueue(new APICallback<APIResponse>(OrderDetailActivity.this) {
+            @Override
+            protected void onSuccess(APIResponse response) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+                tvCancel.setEnabled(true);
+
+                Intent intent = new Intent(OrderDetailActivity.this, MainActivity.class);
+                intent.putExtra("SELECT_TAB", 1);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+                tvCancel.setEnabled(true);
+                if (error.code == 400) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(OrderDetailActivity.this).create();
+                    alertDialog.setTitle(getString(R.string.sorry));
+                    alertDialog.setMessage(error.errorDetails);
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+
+                } else {
+                    try {
+                        StringBuilder errorMessage = new StringBuilder();
+                        Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
+                        for (Map.Entry<String, JsonElement> entry : entries) {
+                            errorMessage.append(entry.getValue().getAsString());
+                        }
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(OrderDetailActivity.this).create();
+                        alertDialog.setTitle(getString(R.string.sorry));
+                        alertDialog.setMessage(errorMessage.toString());
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+
+                    } catch (Exception exception) {
+                        Log.e("cancelPackage", "" + exception);
+                        AlertDialog alertDialog = new AlertDialog.Builder(OrderDetailActivity.this).create();
+                        alertDialog.setTitle(getString(R.string.sorry));
+                        alertDialog.setMessage(error.errorDetails);
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            timerTask.cancel();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+
+                }
+            };
+            timer.cancel();
+            timer = null;
+        } catch (Exception e) {
+            Log.e("HOMEFRAGMENT", "ON STOP " + e);
+        }
     }
 }

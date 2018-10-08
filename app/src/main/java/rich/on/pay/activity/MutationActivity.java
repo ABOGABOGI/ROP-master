@@ -22,11 +22,11 @@ public class MutationActivity extends ToolbarActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 
-    final public static int TYPE_BONUS = 1;
-    final public static int TYPE_BONUS_PENDING = 2;
-    final public static int TYPE_BONUS_SUCCESS = 3;
-    final public static int TYPE_POINT = 4;
-    final public static int TYPE_BALANCE = 5;
+    public static final int TYPE_BONUS = 1;
+    public static final int TYPE_BONUS_PENDING = 2;
+    public static final int TYPE_BONUS_SUCCESS = 3;
+    public static final int TYPE_POINT = 4;
+    public static final int TYPE_BALANCE = 5;
 
     private int type = TYPE_BONUS;
 

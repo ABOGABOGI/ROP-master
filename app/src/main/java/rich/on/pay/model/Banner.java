@@ -7,7 +7,7 @@ import org.parceler.Parcel;
 import java.util.Date;
 
 @Parcel(Parcel.Serialization.BEAN)
-public class Voucher {
+public class Banner {
     private int id;
     @SerializedName("ownable_type")
     private String ownableType;

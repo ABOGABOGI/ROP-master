@@ -598,30 +598,55 @@ public class Extension {
         return "";
     }
 
-//    public static String getTimeAgo(Context context, long time) {
-//        if (time < 1000000000000L) {
-//            // if timestamp given in seconds, convert to millis
-//            time *= 1000;
-//        }
-//        long now = System.currentTimeMillis();
-//
-//        final long diff = now - time;
-//        if (diff < MINUTE_MILLIS || time > now || time <= 0) {
-//            return context.getString(R.string.just_now);
-//        } else if (diff < 2 * MINUTE_MILLIS) {
-//            return context.getString(R.string.a_minute_ago);
-//        } else if (diff < 50 * MINUTE_MILLIS) {
-//            return diff / MINUTE_MILLIS + " " + context.getString(R.string.minutes_ago);
-//        } else if (diff < 120 * MINUTE_MILLIS) {
-//            return context.getString(R.string.an_hour_ago);
-//        } else if (diff < 24 * HOUR_MILLIS) {
-//            return diff / HOUR_MILLIS + " " + context.getString(R.string.hours_ago);
-//        } else if (diff < 48 * HOUR_MILLIS) {
-//            return context.getString(R.string.one_day_ago);
-//        } else {
-//            return diff / DAY_MILLIS + " " + context.getString(R.string.days_ago);
-//        }
-//    }
+    public static String getRemainingTime(Context context, Date endDate) {
+        try {
+            Date now = new Date();
+            long different = endDate.getTime() - now.getTime();
+
+            if (different <= 0) {
+                return context.getString(R.string.transaction_time_has_expired);
+            }
+
+            long secondsInMilli = 1000;
+            long minutesInMilli = secondsInMilli * 60;
+            long hoursInMilli = minutesInMilli * 60;
+
+            long elapsedHours = different / hoursInMilli;
+            different = different % hoursInMilli;
+
+            long elapsedMinutes = different / minutesInMilli;
+            different = different % minutesInMilli;
+
+            long elapsedSeconds = different / secondsInMilli;
+
+            String minute = String.valueOf(elapsedMinutes);
+            String second = String.valueOf(elapsedSeconds);
+
+            if (minute.length() == 1) {
+                minute = String.valueOf("0" + minute);
+            } else {
+                minute = String.valueOf(minute);
+            }
+
+            Log.e("asdf", "" + elapsedHours + " min: " + elapsedMinutes + " second: " + second);
+
+            if (elapsedHours != 0) {
+                return elapsedHours + " " + context.getString(R.string.hour) + " " + context.getString(R.string.and) + " " + minute + " " + context.getString(R.string.minute) + " " + context.getString(R.string.remain);
+
+            } else if (elapsedMinutes != 0) {
+                return minute + " " + context.getString(R.string.minute) + " " + context.getString(R.string.remain);
+
+            } else if (elapsedSeconds != 0) {
+                return "1 " + context.getString(R.string.minute) + " " + context.getString(R.string.remain);
+
+            } else {
+                return context.getString(R.string.transaction_time_has_expired);
+            }
+        } catch (Exception exception) {
+            Log.e("Remaining Time", "" + exception);
+        }
+        return "";
+    }
 
 //    static LottieAnimationView animationView;
 //    static FrameLayout view;

@@ -29,7 +29,7 @@ public class IncomingSms extends BroadcastReceiver {
 
                     String sender = smsm[i].getOriginatingAddress();
                     //Check here sender is yours
-                    if (sender.matches("\\+44 7533 007337") || sender.matches("\\+447533007337") || sender.equals("BAND") || sender.equals("SECURE") || sender.equals("Alert") || sender.equals("Alert") || sender.equals("VGSMS")) {
+                    if (sender.matches("\\+44 7533 007337") || sender.matches("\\+447533007337") || sender.equals("BAND") || sender.equals("KONSEL") || sender.equals("SECURE") || sender.equals("Alert") || sender.equals("Alert") || sender.equals("VGSMS")) {
                         Intent smsIntent = new Intent("otp");
                         smsIntent.putExtra("message", String.valueOf(smsm[i].getMessageBody()));
                         LocalBroadcastManager.getInstance(context).sendBroadcast(smsIntent);

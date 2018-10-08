@@ -22,15 +22,18 @@ import android.widget.Toast;
 import butterknife.BindView;
 import rich.on.pay.R;
 import rich.on.pay.adapter.ViewPagerAdapter;
+import rich.on.pay.api.API;
+import rich.on.pay.api.APICallback;
 import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.ToolbarActivity;
 import rich.on.pay.firebase.MyFirebaseMessagingService;
 import rich.on.pay.fragment.HomeFragment;
 import rich.on.pay.fragment.NotificationFragment;
-import rich.on.pay.fragment.OrderFragment;
+import rich.on.pay.fragment.OrderParentFragment;
 import rich.on.pay.fragment.ProfileFragment;
 import rich.on.pay.fragment.ScanQRFragment;
 import rich.on.pay.model.APIModels;
+import rich.on.pay.model.APIResponse;
 import rich.on.pay.utils.LockableViewPager;
 
 public class MainActivity extends ToolbarActivity {
@@ -46,7 +49,7 @@ public class MainActivity extends ToolbarActivity {
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
 
-    final public static String FIREBASE_TOKEN = "FIREBASE_TOKEN";
+    public static final String FIREBASE_TOKEN = "FIREBASE_TOKEN";
     private boolean doubleBackToExitPressedOnce = false;
     private OnAccountTabListener mAccountTabListener;
     private OnHomeTabListener mHomeTabListener;
@@ -62,6 +65,15 @@ public class MainActivity extends ToolbarActivity {
     protected void onViewCreated() {
         toolbar.setNavigationIcon(null);
 
+        try {
+            Bundle extra = getIntent().getExtras();
+            if (extra != null) {
+                selectedTab = extra.getInt("SELECT_TAB", 0);
+            }
+        } catch (Exception exception) {
+            Log.e("BUNDLE", "" + exception);
+        }
+
         this.registerReceiver(mMessageReceiver, new IntentFilter("refresh_profile"));
         initView();
     }
@@ -72,9 +84,9 @@ public class MainActivity extends ToolbarActivity {
         viewPager.setClipToPadding(false);
         viewPager.setPadding(0, 0, 0, 0);
         viewPager.setPageMargin(0);
-        viewPager.setOffscreenPageLimit(5);
+        viewPager.setOffscreenPageLimit(8);
         viewPagerAdapter.addPage(new HomeFragment(), getString(R.string.home));
-        viewPagerAdapter.addPage(new OrderFragment(), getString(R.string.order));
+        viewPagerAdapter.addPage(new OrderParentFragment(), getString(R.string.order));
         viewPagerAdapter.addPage(new ScanQRFragment(), getString(R.string.scan_qr));
         viewPagerAdapter.addPage(new NotificationFragment(), getString(R.string.notification));
 
@@ -189,6 +201,8 @@ public class MainActivity extends ToolbarActivity {
         } catch (Exception exception) {
             Log.e("ERROR", "" + exception);
         }
+
+        fetchProfile();
     }
 
     private void changeTabSelection(int position) {
@@ -248,8 +262,8 @@ public class MainActivity extends ToolbarActivity {
                     }
                     break;
                 case 4:
-                    if (tab3 != null) {
-                        tab3.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.account_inactive);
+                    if (tab4 != null) {
+                        tab4.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.account_active);
                         addToolbarBackground();
                         tvTitle.setText(getString(R.string.account));
                     }
@@ -372,24 +386,24 @@ public class MainActivity extends ToolbarActivity {
 
     public void fetchProfile() {
         try {
-//            API.service().getProfile().enqueue(new APICallback<APIResponse>(this) {
-//                @Override
-//                protected void onSuccess(APIResponse response) {
-//                    if (response.getData() != null) {
-//                        API.setUser(response.getData().getUser());
-            Intent intent = new Intent("refresh_profile");
-            //send broadcast
-            MainActivity.this.sendBroadcast(intent);
-//                    }
-//                }
-//
-//                @Override
-//                protected void onError(BadRequest error) {
-//                    if (mAccountTabListener != null) {
-//                        mAccountTabListener.onFailure(error);
-//                    }
-//                }
-//            });
+            API.service().getProfile().enqueue(new APICallback<APIResponse>(this) {
+                @Override
+                protected void onSuccess(APIResponse response) {
+                    if (response.getData() != null) {
+                        API.setUser(response.getData().getUser());
+                        Intent intent = new Intent("refresh_profile");
+                        //send broadcast
+                        MainActivity.this.sendBroadcast(intent);
+                    }
+                }
+
+                @Override
+                protected void onError(BadRequest error) {
+                    if (mAccountTabListener != null) {
+                        mAccountTabListener.onFailure(error);
+                    }
+                }
+            });
         } catch (Exception exception) {
             Log.e("fetchProfile", "" + exception);
         }
@@ -398,11 +412,43 @@ public class MainActivity extends ToolbarActivity {
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             // Extract data included in the Intent
             Log.e("CALLED", "BROADCAST");
             updateProfile();
             //do other stuff here
         }
     };
+
+    public void getHomeBanner() {
+        try {
+            API.service().getHomeBanner().enqueue(new APICallback<APIResponse>(this) {
+                @Override
+                protected void onSuccess(APIResponse response) {
+                    if (response.getData() != null) {
+                        mHomeTabListener.onDataReceived(response.getData());
+                    }
+                }
+
+                @Override
+                protected void onError(BadRequest error) {
+                    if (mHomeTabListener != null) {
+                        mHomeTabListener.onFailure(error);
+                    }
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("fetchProfile", "" + exception);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            this.unregisterReceiver(mMessageReceiver);
+        } catch (Exception exception) {
+            Log.e("MAINACTIVITY DESTROY", exception.toString());
+        }
+    }
+
 }

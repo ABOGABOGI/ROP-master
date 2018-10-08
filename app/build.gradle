@@ -15,13 +15,13 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', "proguard-fresco.pro"
-            buildConfigField "String", "ROOT_URL", "\"http://192.168.88.118:8000\""
+            buildConfigField "String", "ROOT_URL", "\"http://richonpay.com\""
         }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', "proguard-fresco.pro"
-            buildConfigField "String", "ROOT_URL", "\"http://192.168.88.118:8000\""
+            buildConfigField "String", "ROOT_URL", "\"http://richonpay.com\""
         }
     }
 }
@@ -31,6 +31,7 @@ def googleVersion = '15.0.1'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':library')
     implementation "com.android.support:support-v4:${supportVersion}"
     implementation "com.android.support:appcompat-v7:${supportVersion}"
     implementation "com.android.support:design:${supportVersion}"

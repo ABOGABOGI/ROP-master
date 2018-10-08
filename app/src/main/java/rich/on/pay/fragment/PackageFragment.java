@@ -79,7 +79,7 @@ public class PackageFragment extends BaseFragment {
 
             tvJoinFee.setText(Extension.priceFormat(fee));
             tvNetworkCashback.setText(String.valueOf(cashback + "%"));
-            tvJoinFee.setText(Extension.priceFormat(income));
+            tvIncomePotential.setText(Extension.priceFormat(income));
             tvBonus.setText(String.valueOf(bonus));
 
         } catch (Exception exception) {

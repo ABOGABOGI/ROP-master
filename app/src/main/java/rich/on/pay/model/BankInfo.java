@@ -11,11 +11,10 @@ import org.parceler.Parcel;
 public class BankInfo {
     private int id;
     private String name;
-    //    private String logo;
     private int code;
     private String abbr;
-    @SerializedName("logo_url")
-    private String logoUrl;
+    @SerializedName("cover_url")
+    private String coverUrl;
 
     public int getId() {
         return id;
@@ -33,14 +32,6 @@ public class BankInfo {
         this.name = name;
     }
 
-//    public String getLogo() {
-//        return logo;
-//    }
-//
-//    public void setLogo(String logo) {
-//        this.logo = logo;
-//    }
-
     public int getCode() {
         return code;
     }
@@ -57,11 +48,11 @@ public class BankInfo {
         this.abbr = abbr;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
+    public String getCoverUrl() {
+        return coverUrl;
     }
 
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 }

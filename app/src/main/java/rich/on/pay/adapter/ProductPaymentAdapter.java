@@ -46,8 +46,21 @@ public class ProductPaymentAdapter extends BaseAdapter<PaymentProduct, ProductPa
 
             final PaymentProduct item = getItem(position);
             holder.tvName.setText(item.getProduct());
-            Extension.setImageFitCenter(context, holder.ivPhoto, R.drawable.account_inactive);
-            Extension.setImageFitCenter(context, holder.ivPhoto, item.getCoverUrl());
+
+            switch (item.getProduct()) {
+                case "Pulsa":
+                    Extension.setImageFitCenter(context, holder.ivPhoto, R.drawable.pulsa);
+                    break;
+                case "Listrik":
+                    Extension.setImageFitCenter(context, holder.ivPhoto, R.drawable.listrik);
+                    break;
+                case "Voucher Game":
+                    Extension.setImageFitCenter(context, holder.ivPhoto, R.drawable.voucher_game);
+                    break;
+                default:
+                    break;
+            }
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

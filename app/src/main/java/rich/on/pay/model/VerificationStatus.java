@@ -13,9 +13,9 @@ public class VerificationStatus {
     private int nric;
     private int selfie;
 
-//    const PENDING = 0;
-//    const VERIFIED = 1;
-//    const DECLINED = 2;
+    public static final int PENDING = 0;
+    public static final int VERIFIED = 1;
+    public static final int DEFAULT = 2; // NOT UPLOADED YET / REJECT
 
     public boolean isPhoneNumber() {
         return phoneNumber;

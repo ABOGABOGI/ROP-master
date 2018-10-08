@@ -51,7 +51,7 @@ public class Vendor {
     private List<BusinessReview> businessReviews;
     @SerializedName("business_operations")
     private List<BusinessOperationHour> businessOperationHours;
-    private List<Voucher> vouchers;
+    private List<Banner> banners;
     private BusinessSocialLink socmed;
     private List<VendorGallery> galleries;
     private String description;
@@ -256,12 +256,12 @@ public class Vendor {
         this.businessOperationHours = businessOperationHours;
     }
 
-    public List<Voucher> getVouchers() {
-        return vouchers;
+    public List<Banner> getBanners() {
+        return banners;
     }
 
-    public void setVouchers(List<Voucher> vouchers) {
-        this.vouchers = vouchers;
+    public void setBanners(List<Banner> banners) {
+        this.banners = banners;
     }
 
     public BusinessSocialLink getSocmed() {

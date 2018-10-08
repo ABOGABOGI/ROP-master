@@ -4,12 +4,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.google.gson.JsonElement;
+
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -101,13 +107,17 @@ public class RegisterActivity extends ToolbarActivity {
             Toast.makeText(this, "You must first agree to the Terms & Condition to continue", Toast.LENGTH_SHORT).show();
             btnRegister.setEnabled(true);
         } else {
-            Extension.showLoading(RegisterActivity.this);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    Extension.showLoading(RegisterActivity.this);
+                }
+            });
             MultipartBody.Builder buildernew = new MultipartBody.Builder();
             buildernew.setType(MultipartBody.FORM);
 
             String nameArray[] = etName.getText().toString().split(" ", 2);
-            buildernew.addFormDataPart("first_name", (nameArray.length > 1 ? nameArray[1] : etName.getText().toString()));
-            buildernew.addFormDataPart("last_name", (nameArray.length > 1 ? nameArray[1] : ""));
+            buildernew.addFormDataPart("first_name", ((nameArray.length == 2) ? nameArray[0] : etName.getText().toString()));
+            buildernew.addFormDataPart("last_name", ((nameArray.length == 2) ? nameArray[1] : ""));
             buildernew.addFormDataPart("phone_number", Extension.validatePhoneNumber(etPhone.getText().toString()));
             buildernew.addFormDataPart("email", etEmail.getText().toString());
             buildernew.addFormDataPart("password", etPassword.getText().toString());
@@ -121,18 +131,83 @@ public class RegisterActivity extends ToolbarActivity {
             API.service().register(requestBody).enqueue(new APICallback<APIResponse>(RegisterActivity.this) {
                 @Override
                 protected void onSuccess(APIResponse response) {
+                    API.setToken(response.getData().getToken());
                     API.setUser(response.getData().getUser());
-                    Extension.dismissLoading();
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Extension.dismissLoading();
+                        }
+                    });
                     btnRegister.setEnabled(true);
-                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+
+                    Intent intent = new Intent(RegisterActivity.this, VerifyOTPActivity.class);
+                    intent.putExtra("TYPE", VerifyOTPActivity.OTP_TYPE[0]);
+                    startActivity(intent);
                     finish();
                 }
 
                 @Override
                 protected void onError(BadRequest error) {
-                    Extension.dismissLoading();
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Extension.dismissLoading();
+                        }
+                    });
                     btnRegister.setEnabled(true);
-                    Toast.makeText(RegisterActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
+
+                    if (error.code == 400) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
+                        alertDialog.setTitle(getString(R.string.sorry));
+                        alertDialog.setMessage(error.errorDetails);
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+
+                    } else {
+                        try {
+                            Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
+                            for (Map.Entry<String, JsonElement> entry : entries) {
+                                if (entry.getKey().matches("first_name") || entry.getKey().matches("last_name")) {
+                                    etName.setError(etName.getError().toString() + " " + entry.getValue().getAsString());
+                                }
+                                if (entry.getKey().matches("phone_number")) {
+                                    etPhone.setError(entry.getValue().getAsString());
+                                }
+                                if (entry.getKey().matches("email")) {
+                                    etEmail.setError(entry.getValue().getAsString());
+                                }
+                                if (entry.getKey().matches("password")) {
+                                    etPassword.setError(entry.getValue().getAsString());
+                                }
+                                if (entry.getKey().matches("password_confirmation")) {
+                                    etConfirmPassword.setError(entry.getValue().getAsString());
+                                }
+                                if (entry.getKey().matches("sponsor_code")) {
+                                    etSponsorCode.setError(entry.getValue().getAsString());
+                                }
+                                if (entry.getKey().matches("leader_code")) {
+                                    etLeaderCode.setError(entry.getValue().getAsString());
+                                }
+                            }
+
+                        } catch (Exception exception) {
+                            Log.e("loginAPI", "" + exception);
+                            AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
+                            alertDialog.setTitle(getString(R.string.sorry));
+                            alertDialog.setMessage(error.errorDetails);
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                    }
                 }
             });
         }

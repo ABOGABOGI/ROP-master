@@ -40,12 +40,12 @@ public class AccountSettingActivity extends ToolbarActivity {
                 switch (position) {
                     case 0:  //  CHANGE PHONE NUMBER
                         Intent changePhoneIntent = new Intent(AccountSettingActivity.this, ChangePhoneEmailActivity.class);
-                        changePhoneIntent.putExtra("TYPE", 0);
+                        changePhoneIntent.putExtra("TYPE", ChangePhoneEmailActivity.PHONE);
                         startActivityForResult(changePhoneIntent, ChangePhoneEmailActivity.PHONE);
                         break;
                     case 1:  //  CHANGE EMAIL
                         Intent changeEmailIntent = new Intent(AccountSettingActivity.this, ChangePhoneEmailActivity.class);
-                        changeEmailIntent.putExtra("TYPE", 1);
+                        changeEmailIntent.putExtra("TYPE", ChangePhoneEmailActivity.EMAIL);
                         startActivityForResult(changeEmailIntent, ChangePhoneEmailActivity.EMAIL);
                         break;
                     case 2:  //  USER BANK ACCOUNT

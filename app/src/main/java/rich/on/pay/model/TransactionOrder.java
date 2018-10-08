@@ -32,7 +32,7 @@ public class TransactionOrder {
     private Vendor referable;
     private User user;
     private User admin;
-    private Voucher promo;
+    private Banner promo;
     @SerializedName("total_before_discount")
     private double totalBeforeDiscount;
     private double total;
@@ -158,11 +158,11 @@ public class TransactionOrder {
         this.referable = referable;
     }
 
-    public Voucher getPromo() {
+    public Banner getPromo() {
         return promo;
     }
 
-    public void setPromo(Voucher promo) {
+    public void setPromo(Banner promo) {
         this.promo = promo;
     }
 

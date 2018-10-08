@@ -14,12 +14,13 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import rich.on.pay.R;
 import rich.on.pay.base.BaseAdapter;
-import rich.on.pay.model.PaymentProduct;
+import rich.on.pay.model.BankAccount;
 import rich.on.pay.utils.Extension;
 
-public class BankLogoAdapter extends BaseAdapter<PaymentProduct, BankLogoAdapter.ViewHolder> {
+public class BankLogoAdapter extends BaseAdapter<BankAccount, BankLogoAdapter.ViewHolder> {
     private final BankLogoAdapter.OnItemClickListener mListener;
     private Activity context;
+    private Integer selectedPosition = 0;
 
     public BankLogoAdapter(Activity context, BankLogoAdapter.OnItemClickListener listener) {
         this.mListener = listener;
@@ -34,21 +35,32 @@ public class BankLogoAdapter extends BaseAdapter<PaymentProduct, BankLogoAdapter
     @Override
     public void onBindViewHolder(@NonNull final BankLogoAdapter.ViewHolder holder, int position) {
         try {
+            if (selectedPosition == holder.getAdapterPosition()) {
+                holder.llBackground.setBackgroundResource(R.drawable.rounded_corner_selected);
+            } else {
+                holder.llBackground.setBackgroundResource(R.drawable.rounded_corner_white);
+            }
+
             DisplayMetrics displayMetrics = new DisplayMetrics();
             context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int width = displayMetrics.widthPixels;
 
-            float calculatedSize = width / 4f;
+            float calculatedSize = width / 5f;
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Integer.parseInt(String.valueOf(Math.round(calculatedSize))));
             layoutParams.gravity = Gravity.CENTER;
             holder.ivImage.setLayoutParams(layoutParams);
 
-            final PaymentProduct item = getItem(position);
-            Extension.setImageFitCenter(context, holder.ivImage, item.getCoverUrl());
+            final BankAccount item = getItem(position);
+            Extension.setImageFitCenter(context, holder.ivImage, item.getBank().getCoverUrl());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onClick(v, item.getId(), item.getProductCode());
+                    mListener.onClick(v, item.getId(), item.getId());
+                    if (selectedPosition != null) {
+                        notifyItemChanged(selectedPosition);
+                    }
+                    selectedPosition = holder.getAdapterPosition();
+                    notifyItemChanged(selectedPosition);
                 }
             });
         } catch (Exception exception) {
@@ -57,6 +69,8 @@ public class BankLogoAdapter extends BaseAdapter<PaymentProduct, BankLogoAdapter
     }
 
     public class ViewHolder extends BaseAdapter.BaseViewHolder {
+        @BindView(R.id.llBackground)
+        LinearLayout llBackground;
         @BindView(R.id.ivImage)
         ImageView ivImage;
 

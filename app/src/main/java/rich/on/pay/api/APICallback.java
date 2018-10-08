@@ -3,6 +3,7 @@ package rich.on.pay.api;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -18,6 +19,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import rich.on.pay.App;
 import rich.on.pay.R;
+import rich.on.pay.activity.LoginActivity;
+import rich.on.pay.model.APIResponse;
+import rich.on.pay.model.User;
 
 public abstract class APICallback<T> implements Callback<T> {
     private final Context context;
@@ -44,6 +48,9 @@ public abstract class APICallback<T> implements Callback<T> {
             try {
                 if (response.errorBody() != null) {
                     BadRequest error = API.getErrorConverter().convert(response.errorBody());
+                    error.setCode(response.code());
+                    onError(error);
+
                     if (error.code == 500) {
                         if (error.errorDetails.matches("The token has been blacklisted") ||
                                 error.errorDetails.matches("Token Signature could not be verified.") ||
@@ -51,8 +58,6 @@ public abstract class APICallback<T> implements Callback<T> {
                                 error.errorDetails.matches("Token has expired and can no longer be refreshed")) {
                             forceLogout();
                         }
-                    } else {
-                        onError(error);
                     }
                 }
             } catch (IOException e) {
@@ -93,50 +98,24 @@ public abstract class APICallback<T> implements Callback<T> {
 
     private void refreshToken(final Call<T> call) {
         try {
-//            API.service().refreshToken().enqueue(new APICallback<APIResponse>(context) {
-////                @Override
-//                protected void onSuccess(APIResponse response) {
-//                    final User user = response.getData().getUser();
-//                    if (user != null) {
-//                        String responsePhoneNumber = "response";
-//                        if (user.getPhoneNumber() != null) {
-//                            if (user.getPhoneNumber().startsWith("0")) {
-//                                responsePhoneNumber = user.getPhoneNumber().replaceFirst("\\+62", "0");
-//                            } else {
-//                                responsePhoneNumber = user.getPhoneNumber();
-//                            }
-//                        }
-//
-//                        String hawkPhoneNumber = "local";
-//                        if (API.currentUser() != null) {
-//                            if (API.currentUser().getPhoneNumber() != null) {
-//                                if (API.currentUser().getPhoneNumber().startsWith("0")) {
-//                                    hawkPhoneNumber = API.currentUser().getPhoneNumber().replaceFirst("\\+62", "0");
-//                                } else {
-//                                    hawkPhoneNumber = API.currentUser().getPhoneNumber();
-//                                }
-//                            }
-//                        }
-//
-//                        if (responsePhoneNumber.equals(hawkPhoneNumber)) {
-//                            user.setSelected(true);
-//                            user.setUserToken(response.getData().getToken());
-//                            API.setUser(user);
-//                            API.setToken(response.getData().getToken());
-//                            call.clone().enqueue(APICallback.this);
-//                        } else {
-//                            Log.e("REFRESH TOKEN", "DIFF ACCOUNT");
-//                            APICallback.this.forceLogout();
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                protected void onError(BadRequest error) {
-//                    Log.e("REFRESH TOKEN", "FAIL " + error);
-//                    APICallback.this.forceLogout();
-//                }
-//            });
+            API.service().refreshToken().enqueue(new APICallback<APIResponse>(context) {
+                @Override
+                protected void onSuccess(APIResponse response) {
+                    final User user = response.getData().getUser();
+                    if (user != null) {
+                        user.setUserToken(response.getData().getToken());
+                        API.setUser(user);
+                        API.setToken(response.getData().getToken());
+                        call.clone().enqueue(APICallback.this);
+                    }
+                }
+
+                @Override
+                protected void onError(BadRequest error) {
+                    Log.e("REFRESH TOKEN", "FAIL " + error);
+                    APICallback.this.forceLogout();
+                }
+            });
         } catch (Exception e) {
             Log.e("REFRESH TOKEN", "EXCEPTION " + e);
             APICallback.this.forceLogout();
@@ -167,9 +146,9 @@ public abstract class APICallback<T> implements Callback<T> {
             messageText.setText(R.string.session_over);
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 public void onDismiss(final DialogInterface dialog) {
-//                    Intent intent = new Intent(context, SignInActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(intent);
                 }
             });
             dialog.show();

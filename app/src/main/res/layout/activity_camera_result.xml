@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/tvCategoryTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.8"
@@ -48,7 +48,7 @@
                 android:paddingEnd="@dimen/small"
                 android:paddingStart="@dimen/small"
                 android:paddingTop="@dimen/tiny"
-                android:text="@string/pastikan_seluruh_foto_ktp_di_daerah_kotak_yang_telah_disediakan_dan_terlihat_jelas"
+                android:text="@string/verify_nric_description"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_14sp" />
 

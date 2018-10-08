@@ -36,16 +36,18 @@
 
                         <TextView
                             android:id="@+id/tvName"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_18sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvPhone"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/white" />
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_14sp" />
 
                     </LinearLayout>
 
@@ -54,7 +56,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:padding="@dimen/tiny" />
+                        android:padding="@dimen/tiny"
+                        android:textColor="@android:color/white" />
 
                 </LinearLayout>
 
@@ -83,7 +86,8 @@
                             android:id="@+id/tvReferralCode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/white" />
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -211,6 +215,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal"
+                android:background="@android:color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:text="@string/logout"
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
 

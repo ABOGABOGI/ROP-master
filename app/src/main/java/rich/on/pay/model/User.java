@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import org.parceler.Parcel;
 
 import java.util.Date;
+import java.util.List;
 
 @Parcel(Parcel.Serialization.BEAN)
 public class User {
@@ -85,7 +86,12 @@ public class User {
     private IdentityResponse selfieIC;
     @SerializedName("unread_notification")
     private int unreadNotification;
-    private int packages;
+    private int packages;   // 0 FREE
+    // 1 SILVER
+    // 2 GOLD
+    // 3 PLATINUM
+
+    private List<UserWallet> wallets;
 
     //USAHA
     private String usaha;
@@ -932,6 +938,14 @@ public class User {
 
     public void setPackages(int packages) {
         this.packages = packages;
+    }
+
+    public List<UserWallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(List<UserWallet> wallets) {
+        this.wallets = wallets;
     }
 }
 

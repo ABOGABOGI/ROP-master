@@ -1,9 +1,13 @@
 package rich.on.pay.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,16 +24,21 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rich.on.pay.R;
 import rich.on.pay.activity.AccountSettingActivity;
+import rich.on.pay.activity.LoginActivity;
 import rich.on.pay.activity.MainActivity;
 import rich.on.pay.activity.MutationActivity;
 import rich.on.pay.activity.PackageActivity;
 import rich.on.pay.activity.VerifyUserAccountActivity;
+import rich.on.pay.activity.WebViewActivity;
 import rich.on.pay.adapter.ItemListAdapter;
 import rich.on.pay.api.API;
+import rich.on.pay.api.APICallback;
 import rich.on.pay.api.BadRequest;
 import rich.on.pay.base.BaseFragment;
 import rich.on.pay.model.APIModels;
+import rich.on.pay.model.APIResponse;
 import rich.on.pay.model.ItemList;
+import rich.on.pay.model.VerificationStatus;
 import rich.on.pay.utils.Extension;
 
 import static rich.on.pay.activity.MutationActivity.TYPE_BALANCE;
@@ -66,6 +75,8 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
     ImageView ivPointMutation;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.btnLogout)
+    Button btnLogout;
 
     private MainActivity mActivity;
 
@@ -77,6 +88,8 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
     @Override
     protected void onViewCreated() {
         try {
+            recyclerView.setFocusable(false);
+            tvName.requestFocus();
             mActivity = (MainActivity) getActivity();
             mActivity.setAccountTabListener(this);
             swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
@@ -114,12 +127,15 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
                             startActivity(new Intent(getActivity(), VerifyUserAccountActivity.class));
                             break;
                         case 2:  //  NETWORK
-//                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
+                            Intent networkIntent = new Intent(getActivity(), WebViewActivity.class);
+                            networkIntent.putExtra("TYPE", WebViewActivity.WEBVIEW_TYPE[2]);
+                            startActivity(networkIntent);
                             break;
                         case 3:  //  ACCOUNT SETTING
                             startActivity(new Intent(getActivity(), AccountSettingActivity.class));
                             break;
                         case 4:  //  INFORMATION
+                            comingSoonDialog();
 //                            startActivity(new Intent(getActivity(), MutationBalanceActivity.class));
                             break;
                         default:
@@ -154,11 +170,78 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
         startActivity(balanceIntent);
     }
 
+    @OnClick(R.id.btnShareReferral)
+    void shareReferralCode() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.referral_message) + " " + API.currentUser().getReferralCode());
+        sendIntent.setType("text/nbnbnplain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getString(R.string.send_to)));
+    }
+
     @OnClick(R.id.llPointMutation)
     void redirectPointMutation() {
         Intent balanceIntent = new Intent(getActivity(), MutationActivity.class);
         balanceIntent.putExtra("TYPE", TYPE_POINT);
         startActivity(balanceIntent);
+    }
+
+    @OnClick(R.id.btnLogout)
+    void logoutAccount() {
+        btnLogout.setEnabled(false);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(Html.fromHtml(getString(R.string.logout_confirmation)));
+        builder.setPositiveButton(R.string.logout, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            Extension.showLoading(getActivity());
+                        }
+                    });
+
+                    API.service().logout().enqueue(new APICallback<APIResponse>(getActivity()) {
+                        @Override
+                        protected void onSuccess(APIResponse response) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Extension.dismissLoading();
+                                }
+                            });
+                            API.logOut();
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        protected void onError(BadRequest error) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Extension.dismissLoading();
+                                }
+                            });
+                            API.logOut();
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    });
+                } catch (Exception exception) {
+                    Log.e("ERROR", "" + exception);
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, null);
+        AlertDialog dialog = builder.show();
+        dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                btnLogout.setEnabled(true);
+            }
+        });
     }
 
     @Override
@@ -179,25 +262,55 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
 
     private void setProfile() {
         try {
-//            tvName.setText(API.currentUser().getFullname());
-            tvName.setText("ADE KAM");
+            tvName.setText(API.currentUser().getFullname());
+            tvPhone.setText(API.currentUser().getPhoneNumber());
 
             switch (API.currentUser().getPackages()) {
                 case 0:
                     tvPackage.setText(R.string.free_member);
+                    tvPackage.setBackgroundResource(R.drawable.package_free);
+                    llBonusMutation.setVisibility(View.GONE);
                     break;
                 case 1:
                     tvPackage.setText(R.string.silver_member);
+                    tvPackage.setBackgroundResource(R.drawable.package_silver);
+                    llBonusMutation.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     tvPackage.setText(R.string.gold_member);
+                    tvPackage.setBackgroundResource(R.drawable.package_gold);
+                    llBonusMutation.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     tvPackage.setText(R.string.platinum_member);
+                    tvPackage.setBackgroundResource(R.drawable.package_platinum);
+                    llBonusMutation.setVisibility(View.VISIBLE);
+                    llUpgrade.setVisibility(View.GONE);
                     break;
             }
+
+            if (API.currentUser().getVerificationStatus().getNric() == VerificationStatus.VERIFIED) {
+                llReferral.setVisibility(View.VISIBLE);
+                tvReferralCode.setText(API.currentUser().getReferralCode());
+            }
+
         } catch (Exception exception) {
             Log.e("setProfile PROFILE", "" + exception);
         }
+    }
+
+    private void comingSoonDialog() {
+        android.support.v7.app.AlertDialog cameraDialog = new android.support.v7.app.AlertDialog.Builder(getActivity()).create();
+        cameraDialog.setCanceledOnTouchOutside(false);
+        cameraDialog.setTitle(getString(R.string.coming_soon));
+        cameraDialog.setMessage(getString(R.string.this_feature_is_still_on_development));
+        cameraDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.oke),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        cameraDialog.show();
+        cameraDialog.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
     }
 }

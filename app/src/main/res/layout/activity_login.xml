@@ -1,110 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:fillViewport="true"
+    android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/black"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/login_bg" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:src="@drawable/logo_home" />
-
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/normal">
+        android:weightSum="1">
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:textSize="@dimen/text_20sp" />
+            android:layout_height="0dp"
+            android:layout_weight="0.3">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
-            android:layout_marginTop="@dimen/tiny"
-            app:hintEnabled="true">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/login_bg" />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/etEmail"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email_or_phone_number"
-                android:inputType="text"
-                android:textSize="@dimen/text_16sp" />
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/logo_home" />
 
-        </android.support.design.widget.TextInputLayout>
+        </FrameLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/elevation"
-            app:hintEnabled="true"
-            app:passwordToggleContentDescription="@string/password"
-            app:passwordToggleDrawable="@drawable/visible_password_toogle"
-            app:passwordToggleEnabled="true">
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:orientation="vertical"
+            android:padding="@dimen/normal">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/etPassword"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:textSize="@dimen/text_16sp" />
+                android:text="@string/login"
+                android:textSize="@dimen/text_20sp" />
 
-        </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
+                android:layout_marginTop="@dimen/tiny"
+                app:hintEnabled="true">
 
-        <TextView
-            android:id="@+id/tvForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginBottom="@dimen/normal"
-            android:padding="@dimen/small"
-            android:text="@string/forgot_password"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_14sp" />
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_or_phone_number"
+                    android:inputType="text"
+                    android:textSize="@dimen/text_16sp" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            style="@style/RoundedRedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/signin" />
+            </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/tiny"
-            android:padding="@dimen/small"
-            android:text="@string/dont_have_an_account_register_now"
-            android:textSize="@dimen/text_14sp" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/elevation"
+                app:hintEnabled="true"
+                app:passwordToggleContentDescription="@string/password"
+                app:passwordToggleDrawable="@drawable/visible_password_toogle"
+                app:passwordToggleEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/text_16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginBottom="@dimen/normal"
+                android:padding="@dimen/small"
+                android:text="@string/forgot_password"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_14sp" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/RoundedRedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/signin" />
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/tiny"
+                android:padding="@dimen/small"
+                android:text="@string/dont_have_an_account_register_now"
+                android:textSize="@dimen/text_14sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

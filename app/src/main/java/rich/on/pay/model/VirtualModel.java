@@ -15,7 +15,7 @@ public class VirtualModel {
     @SerializedName("bank_account_id")
     private int bankAccountID;
     @SerializedName("bank_account")
-    private DestinationBankAccount bankAccount;
+    private BankAccount bankAccount;
     private String note;
 
     public int getDestBankAccountID() {
@@ -50,11 +50,11 @@ public class VirtualModel {
         this.bankAccountID = bankAccountID;
     }
 
-    public DestinationBankAccount getBankAccount() {
+    public BankAccount getBankAccount() {
         return bankAccount;
     }
 
-    public void setBankAccount(DestinationBankAccount bankAccount) {
+    public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
     }
 
