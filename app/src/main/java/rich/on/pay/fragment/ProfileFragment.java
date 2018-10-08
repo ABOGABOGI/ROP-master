@@ -292,6 +292,8 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
             if (API.currentUser().getVerificationStatus().getNric() == VerificationStatus.VERIFIED) {
                 llReferral.setVisibility(View.VISIBLE);
                 tvReferralCode.setText(API.currentUser().getReferralCode());
+            } else {
+                llReferral.setVisibility(View.GONE);
             }
 
         } catch (Exception exception) {

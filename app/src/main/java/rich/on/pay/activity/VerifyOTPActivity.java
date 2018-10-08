@@ -453,7 +453,52 @@ public class VerifyOTPActivity extends ToolbarActivity {
                     }
                 });
                 etPinView.setEnabled(true);
-                Toast.makeText(VerifyOTPActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
+
+                if (error.code == 400) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(VerifyOTPActivity.this).create();
+                    alertDialog.setTitle(getString(R.string.sorry));
+                    alertDialog.setMessage(error.errorDetails);
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+
+                } else {
+                    try {
+                        String errorMessage = "";
+                        Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
+                        for (Map.Entry<String, JsonElement> entry : entries) {
+                            errorMessage = errorMessage + entry.getValue().getAsString();
+                        }
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(VerifyOTPActivity.this).create();
+                        alertDialog.setTitle(getString(R.string.sorry));
+                        alertDialog.setMessage(errorMessage);
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+
+                    } catch (Exception exception) {
+                        Log.e("requestOTP", "" + exception);
+                        AlertDialog alertDialog = new AlertDialog.Builder(VerifyOTPActivity.this).create();
+                        alertDialog.setTitle(getString(R.string.sorry));
+                        alertDialog.setMessage(error.errorDetails);
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+                }
             }
         });
     }

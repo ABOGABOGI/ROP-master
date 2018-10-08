@@ -151,7 +151,7 @@
     <string name="logout">Keluar</string>
     <string name="coming_soon">Coming Soon!</string>
     <string name="logout_confirmation">Keluar dari ROP?</string>
-    <string name="referral_message">Halo , ayo gunakan kode rujukan saya di https://rop.mareco.id untuk mendapatkan bonus saldo !</string>
+    <string name="referral_message">Halo , ayo gunakan kode rujukan saya di http://richonpay.com untuk mendapatkan bonus saldo !</string>
     <string name="resend">Kirim Ulang</string>
     <string name="please_select_bank_first">Silakan pilih bank dulu</string>
     <string name="transfer_before">Transfer sebelum</string>

@@ -217,26 +217,4 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
             startActivity(intent);
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        try {
-            API.service().cancelPackage(upgradeRequest.getId()).enqueue(new APICallback<APIResponse>(TopupBankSelectionActivity.this) {
-                @Override
-                protected void onSuccess(APIResponse response) {
-                    Intent intent = new Intent("refresh_transaction");
-                    //send broadcast
-                    TopupBankSelectionActivity.this.sendBroadcast(intent);
-                }
-
-                @Override
-                protected void onError(BadRequest error) {
-
-                }
-            });
-        } catch (Exception exception) {
-            Log.e("MAINACTIVITY DESTROY", exception.toString());
-        }
-    }
 }
