@@ -54,7 +54,7 @@
                 android:layout_marginTop="@dimen/large"
                 android:orientation="vertical">
 
-                <rich.on.pay.utils.PinView
+                <com.richonpay.utils.PinView
                     android:id="@+id/etPinView"
                     style="@style/PinWidget.PinView"
                     android:layout_width="wrap_content"

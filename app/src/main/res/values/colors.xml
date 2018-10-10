@@ -16,6 +16,8 @@
     <color name="packagePlatinumBackground">#414958</color>
     <color name="statusSuccess">#26C521</color>
     <color name="statusProcess">#28A1FE</color>
+    <color name="statusCanceled">#FC342D</color>
+    <color name="statusRefund">#4328FE</color>
     <color name="roundedGreyBorder">#AEAEAE</color>
     <color name="roundedGreyFill">#D0D0D0</color>
     <color name="roundedBlackBorder">#010101</color>

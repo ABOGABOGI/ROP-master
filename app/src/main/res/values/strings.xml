@@ -166,6 +166,7 @@
     <string name="waiting_allcaps">MENUNGGU</string>
     <string name="cancel_allcaps">BATAL</string>
     <string name="processing_allcaps">DIPROSES</string>
+    <string name="succesful_allcaps">BERHASIL</string>
     <string name="refund_allcaps">REFUND</string>
     <string name="declined_allcaps">DITOLAK</string>
 </resources>
