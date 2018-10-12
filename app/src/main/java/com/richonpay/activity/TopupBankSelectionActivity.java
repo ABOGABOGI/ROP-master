@@ -93,7 +93,9 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
                 @Override
                 protected void onSuccess(APIResponse response) {
                     mAdapter.setItems(response.getData().getBankAccounts());
-                    selectedBank = response.getData().getBankAccounts().get(0).getId();
+                    if (response.getData().getBankAccounts().size() > 0){
+                        selectedBank = response.getData().getBankAccounts().get(0).getId();
+                    }
                 }
 
                 @Override
@@ -180,7 +182,7 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
                             StringBuilder errorMessage = new StringBuilder();
                             Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                             for (Map.Entry<String, JsonElement> entry : entries) {
-                                errorMessage.append(entry.getValue().getAsString());
+                                errorMessage.append(entry.getValue().getAsString()).append("\n");;
                             }
 
                             AlertDialog alertDialog = new AlertDialog.Builder(TopupBankSelectionActivity.this).create();
@@ -216,5 +218,13 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
             intent.putExtra("PACKAGE", isPackageUpgrade);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent = new Intent("refresh_transaction");
+        //send broadcast
+        TopupBankSelectionActivity.this.sendBroadcast(intent);
     }
 }

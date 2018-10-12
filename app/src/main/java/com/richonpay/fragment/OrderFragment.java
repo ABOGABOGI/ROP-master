@@ -4,15 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import org.parceler.Parcels;
-
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.activity.OrderDetailActivity;
 import com.richonpay.adapter.OrderAdapter;
@@ -23,10 +21,16 @@ import com.richonpay.base.BaseFragment;
 import com.richonpay.model.APIResponse;
 import com.richonpay.model.UpgradeRequest;
 
+import org.parceler.Parcels;
+
+import butterknife.BindView;
+
 public class OrderFragment extends BaseFragment {
 
     @BindView(R.id.llEmptyList)
     LinearLayout llEmptyList;
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -48,6 +52,13 @@ public class OrderFragment extends BaseFragment {
     @Override
     protected void onViewCreated() {
         try {
+            swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    getTransactionList();
+                }
+            });
+
             int transactionType = getArguments().getInt("TRANSACTION_TYPE", TRANSACTION_TYPE[0]);
             mAdapter = new OrderAdapter(getActivity(), new OrderAdapter.OnItemClickListener() {
                 @Override
@@ -83,9 +94,16 @@ public class OrderFragment extends BaseFragment {
 
     private void getTransactionList() {
         try {
+            if (swipeRefresh != null) {
+                swipeRefresh.setRefreshing(true);
+            }
             API.service().getPackageHistory().enqueue(new APICallback<APIResponse>(getActivity()) {
                 @Override
                 protected void onSuccess(APIResponse response) {
+                    if (swipeRefresh != null) {
+                        swipeRefresh.setRefreshing(false);
+                    }
+
                     if (response.getData() != null) {
                         if (response.getData().getUpgradeRequests() != null) {
                             if (response.getData().getUpgradeRequests().size() > 0) {
@@ -100,7 +118,9 @@ public class OrderFragment extends BaseFragment {
 
                 @Override
                 protected void onError(BadRequest error) {
-
+                    if (swipeRefresh != null) {
+                        swipeRefresh.setRefreshing(false);
+                    }
                 }
             });
         } catch (Exception exception) {

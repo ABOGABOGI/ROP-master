@@ -11,6 +11,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
+import com.richonpay.R;
+import com.richonpay.adapter.ViewPagerAdapter;
+import com.richonpay.api.API;
+import com.richonpay.api.APICallback;
+import com.richonpay.api.BadRequest;
+import com.richonpay.base.ToolbarActivity;
+import com.richonpay.fragment.PackageFragment;
+import com.richonpay.model.APIResponse;
+import com.richonpay.utils.Extension;
 
 import org.parceler.Parcels;
 
@@ -21,15 +30,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.MultipartBody;
-import com.richonpay.R;
-import com.richonpay.adapter.ViewPagerAdapter;
-import com.richonpay.api.API;
-import com.richonpay.api.APICallback;
-import com.richonpay.api.BadRequest;
-import com.richonpay.base.ToolbarActivity;
-import com.richonpay.fragment.PackageFragment;
-import com.richonpay.model.APIResponse;
-import com.richonpay.utils.Extension;
 
 public class PackageActivity extends ToolbarActivity {
 
@@ -68,7 +68,6 @@ public class PackageActivity extends ToolbarActivity {
         bundle.putString("BONUS", "Bonus Tour dalam dan luar negeri hingga Honda HR-V Prestige.");
         PackageFragment silverPackage = new PackageFragment();
         silverPackage.setArguments(bundle);
-        viewPagerAdapter.addPage(silverPackage, "");
 
         // GOLD
         Bundle bundle1 = new Bundle();
@@ -79,8 +78,6 @@ public class PackageActivity extends ToolbarActivity {
         bundle1.putString("BONUS", "Bonus Tour dalam dan luar negeri hingga Honda HR-V Prestige.");
         PackageFragment goldPackage = new PackageFragment();
         goldPackage.setArguments(bundle1);
-        viewPagerAdapter.addPage(goldPackage, "");
-
 
         Bundle bundle2 = new Bundle();
         bundle2.putInt("PACKAGE", 2);
@@ -90,7 +87,21 @@ public class PackageActivity extends ToolbarActivity {
         bundle2.putString("BONUS", "Bonus Tour dalam dan luar negeri hingga Honda HR-V Prestige.");
         PackageFragment platinumPackage = new PackageFragment();
         platinumPackage.setArguments(bundle2);
-        viewPagerAdapter.addPage(platinumPackage, "");
+
+        switch (API.currentUser().getPackages()) {
+            case 0:
+                viewPagerAdapter.addPage(silverPackage, "");
+                viewPagerAdapter.addPage(goldPackage, "");
+                viewPagerAdapter.addPage(platinumPackage, "");
+                break;
+            case 1:
+                viewPagerAdapter.addPage(goldPackage, "");
+                viewPagerAdapter.addPage(platinumPackage, "");
+                break;
+            case 2:
+                viewPagerAdapter.addPage(platinumPackage, "");
+                break;
+        }
 
         viewPager.setAdapter(viewPagerAdapter);
         indicator.setViewPager(viewPager);
@@ -151,7 +162,19 @@ public class PackageActivity extends ToolbarActivity {
             });
             MultipartBody.Builder buildernew = new MultipartBody.Builder();
             buildernew.setType(MultipartBody.FORM);
-            buildernew.addFormDataPart("package", String.valueOf((selectedPackage + 1)));
+
+            switch (API.currentUser().getPackages()) {
+                case 0:
+                    buildernew.addFormDataPart("package", String.valueOf((selectedPackage + 1)));
+                    break;
+                case 1:
+                    buildernew.addFormDataPart("package", String.valueOf((selectedPackage + 2)));
+                    break;
+                case 2:
+                    buildernew.addFormDataPart("package", "3");
+                    break;
+            }
+
             // 0 FREE
             // 1 SILVER
             // 2 GOLD
@@ -200,7 +223,7 @@ public class PackageActivity extends ToolbarActivity {
                             StringBuilder errorMessage = new StringBuilder();
                             Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                             for (Map.Entry<String, JsonElement> entry : entries) {
-                                errorMessage.append(entry.getValue().getAsString());
+                                errorMessage.append(entry.getValue().getAsString()).append("\n");;
                             }
 
                             AlertDialog alertDialog = new AlertDialog.Builder(PackageActivity.this).create();

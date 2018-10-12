@@ -7,8 +7,8 @@
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
-    android:paddingEnd="0dp"
-    android:paddingStart="@dimen/small">
+    android:paddingStart="@dimen/small"
+    android:paddingEnd="0dp">
 
     <View
         android:layout_width="match_parent"

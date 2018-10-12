@@ -208,7 +208,7 @@ public class VerifyOTPActivity extends ToolbarActivity {
                         user.setPhoneNumber(tvDestination.getText().toString());
                         API.setUser(user);
 
-                        setResult(ChangePhoneEmailActivity.EMAIL, new Intent(VerifyOTPActivity.this, ChangePhoneEmailActivity.class));
+                        setResult(ChangePhoneEmailPasswordActivity.EMAIL, new Intent(VerifyOTPActivity.this, ChangePhoneEmailPasswordActivity.class));
                         finish();
                     }
 
@@ -237,7 +237,7 @@ public class VerifyOTPActivity extends ToolbarActivity {
                                 StringBuilder errorMessage = new StringBuilder();
                                 Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                                 for (Map.Entry<String, JsonElement> entry : entries) {
-                                    errorMessage.append(entry.getValue().getAsString());
+                                    errorMessage.append(entry.getValue().getAsString()).append("\n");;
                                 }
 
                                 AlertDialog alertDialog = new AlertDialog.Builder(VerifyOTPActivity.this).create();
@@ -276,7 +276,7 @@ public class VerifyOTPActivity extends ToolbarActivity {
                         user.setEmail(tvDestination.getText().toString());
                         API.setUser(user);
 
-                        setResult(ChangePhoneEmailActivity.EMAIL, new Intent(VerifyOTPActivity.this, ChangePhoneEmailActivity.class));
+                        setResult(ChangePhoneEmailPasswordActivity.EMAIL, new Intent(VerifyOTPActivity.this, ChangePhoneEmailPasswordActivity.class));
                         finish();
                     }
 
@@ -305,7 +305,7 @@ public class VerifyOTPActivity extends ToolbarActivity {
                                 StringBuilder errorMessage = new StringBuilder();
                                 Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                                 for (Map.Entry<String, JsonElement> entry : entries) {
-                                    errorMessage.append(entry.getValue().getAsString());
+                                    errorMessage.append(entry.getValue().getAsString()).append("\n");;
                                 }
 
                                 AlertDialog alertDialog = new AlertDialog.Builder(VerifyOTPActivity.this).create();

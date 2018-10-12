@@ -8,12 +8,21 @@ import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
+import com.richonpay.R;
+import com.richonpay.api.API;
+import com.richonpay.api.APICallback;
+import com.richonpay.api.BadRequest;
+import com.richonpay.base.ToolbarActivity;
+import com.richonpay.model.APIResponse;
+import com.richonpay.model.UpgradeRequest;
+import com.richonpay.utils.Extension;
 
 import org.parceler.Parcels;
 
@@ -24,14 +33,6 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.richonpay.R;
-import com.richonpay.api.API;
-import com.richonpay.api.APICallback;
-import com.richonpay.api.BadRequest;
-import com.richonpay.base.ToolbarActivity;
-import com.richonpay.model.APIResponse;
-import com.richonpay.model.UpgradeRequest;
-import com.richonpay.utils.Extension;
 
 public class OrderDetailActivity extends ToolbarActivity {
 
@@ -57,6 +58,8 @@ public class OrderDetailActivity extends ToolbarActivity {
     TextView tvBankAccount;
     @BindView(R.id.tvAccountOwner)
     TextView tvAccountOwner;
+    @BindView(R.id.tvActionDescription)
+    TextView tvActionDescription;
     @BindView(R.id.btnConfirmation)
     Button btnConfirmation;
     @BindView(R.id.tvCancel)
@@ -86,11 +89,17 @@ public class OrderDetailActivity extends ToolbarActivity {
 
                     switch (upgradeRequest.getStatus()) {
                         case UpgradeRequest.PENDING:
+                            tvActionDescription.setVisibility(View.VISIBLE);
+                            btnConfirmation.setVisibility(View.VISIBLE);
+                            tvCancel.setVisibility(View.VISIBLE);
                             tvStatus.setText(getString(R.string.waiting));
                             tvStatus.setBackgroundResource(R.drawable.status_waiting);
                             break;
 
                         case UpgradeRequest.WAITING_PAYMENT:
+                            tvActionDescription.setVisibility(View.VISIBLE);
+                            btnConfirmation.setVisibility(View.VISIBLE);
+                            tvCancel.setVisibility(View.VISIBLE);
                             tvStatus.setText(getString(R.string.waiting));
                             tvStatus.setBackgroundResource(R.drawable.status_waiting);
                             break;
@@ -247,7 +256,7 @@ public class OrderDetailActivity extends ToolbarActivity {
                         StringBuilder errorMessage = new StringBuilder();
                         Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                         for (Map.Entry<String, JsonElement> entry : entries) {
-                            errorMessage.append(entry.getValue().getAsString());
+                            errorMessage.append(entry.getValue().getAsString()).append("\n");;
                         }
 
                         AlertDialog alertDialog = new AlertDialog.Builder(OrderDetailActivity.this).create();
@@ -329,7 +338,7 @@ public class OrderDetailActivity extends ToolbarActivity {
                         StringBuilder errorMessage = new StringBuilder();
                         Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                         for (Map.Entry<String, JsonElement> entry : entries) {
-                            errorMessage.append(entry.getValue().getAsString());
+                            errorMessage.append(entry.getValue().getAsString()).append("\n");;
                         }
 
                         AlertDialog alertDialog = new AlertDialog.Builder(OrderDetailActivity.this).create();

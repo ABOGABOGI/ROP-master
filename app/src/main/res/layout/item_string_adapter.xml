@@ -32,8 +32,8 @@
         android:id="@+id/tvString"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/small"
         android:gravity="center|start"
+        android:padding="@dimen/small"
         android:textAllCaps="false"
         android:textColor="@color/textColorMain"
         android:textSize="@dimen/text_14sp" />

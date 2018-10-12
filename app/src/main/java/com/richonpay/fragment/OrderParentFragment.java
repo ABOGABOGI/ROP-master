@@ -43,36 +43,36 @@ public class OrderParentFragment extends BaseFragment {
         allOrder.setArguments(AllOrderBundle);
         viewPagerAdapter.addPage(allOrder, getString(R.string.all));
 
-        Bundle waitingBundle = new Bundle();
-        waitingBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[1]);
-        OrderFragment waitingOrder = new OrderFragment();
-        waitingOrder.setArguments(waitingBundle);
-        viewPagerAdapter.addPage(waitingOrder, getString(R.string.waiting_allcaps));
-
-        Bundle canceledBundle = new Bundle();
-        canceledBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[2]);
-        OrderFragment canceledOrder = new OrderFragment();
-        canceledOrder.setArguments(canceledBundle);
-        viewPagerAdapter.addPage(canceledOrder, getString(R.string.cancel_allcaps));
-
-        Bundle ongoingBundle = new Bundle();
-        ongoingBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[3]);
-        OrderFragment ongoingOrder = new OrderFragment();
-        ongoingOrder.setArguments(ongoingBundle);
-        viewPagerAdapter.addPage(ongoingOrder, getString(R.string.processing_allcaps));
-
-
-        Bundle successfulBundle = new Bundle();
-        successfulBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[4]);
-        OrderFragment successfulOrder = new OrderFragment();
-        successfulOrder.setArguments(successfulBundle);
-        viewPagerAdapter.addPage(successfulOrder, getString(R.string.succesful_allcaps));
-
-        Bundle refundBundle = new Bundle();
-        refundBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[5]);
-        OrderFragment refundedOrder = new OrderFragment();
-        refundedOrder.setArguments(refundBundle);
-        viewPagerAdapter.addPage(refundedOrder, getString(R.string.refund_allcaps));
+//        Bundle waitingBundle = new Bundle();
+//        waitingBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[1]);
+//        OrderFragment waitingOrder = new OrderFragment();
+//        waitingOrder.setArguments(waitingBundle);
+//        viewPagerAdapter.addPage(waitingOrder, getString(R.string.waiting_allcaps));
+//
+//        Bundle canceledBundle = new Bundle();
+//        canceledBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[2]);
+//        OrderFragment canceledOrder = new OrderFragment();
+//        canceledOrder.setArguments(canceledBundle);
+//        viewPagerAdapter.addPage(canceledOrder, getString(R.string.cancel_allcaps));
+//
+//        Bundle ongoingBundle = new Bundle();
+//        ongoingBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[3]);
+//        OrderFragment ongoingOrder = new OrderFragment();
+//        ongoingOrder.setArguments(ongoingBundle);
+//        viewPagerAdapter.addPage(ongoingOrder, getString(R.string.processing_allcaps));
+//
+//
+//        Bundle successfulBundle = new Bundle();
+//        successfulBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[4]);
+//        OrderFragment successfulOrder = new OrderFragment();
+//        successfulOrder.setArguments(successfulBundle);
+//        viewPagerAdapter.addPage(successfulOrder, getString(R.string.succesful_allcaps));
+//
+//        Bundle refundBundle = new Bundle();
+//        refundBundle.putInt("TRANSACTION_TYPE", TRANSACTION_TYPE[5]);
+//        OrderFragment refundedOrder = new OrderFragment();
+//        refundedOrder.setArguments(refundBundle);
+//        viewPagerAdapter.addPage(refundedOrder, getString(R.string.refund_allcaps));
 
         viewPager.setAdapter(viewPagerAdapter);
     }

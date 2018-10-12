@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/tiny"
-        android:paddingEnd="@dimen/small"
         android:paddingStart="@dimen/small"
-        android:paddingTop="@dimen/tiny" />
+        android:paddingTop="@dimen/tiny"
+        android:paddingEnd="@dimen/small"
+        android:paddingBottom="@dimen/tiny" />
 
     <LinearLayout
         android:layout_width="match_parent"

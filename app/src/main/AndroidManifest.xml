@@ -23,7 +23,7 @@
         android:required="false" />
 
     <application
-        android:name="App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/app_icon_rop"
         android:label="@string/app_name"
@@ -31,7 +31,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.richonpay.RootActivity"
+            android:name=".RootActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,39 +63,39 @@
             <!--  -->
         </activity>
         <activity
-            android:name="com.richonpay.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.richonpay.activity.SplashActivity" />
+        <activity android:name=".activity.SplashActivity" />
         <activity
-            android:name="com.richonpay.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.richonpay.activity.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.richonpay.activity.VerifyOTPActivity" />
-        <activity android:name="com.richonpay.activity.PackageActivity" />
-        <activity android:name="com.richonpay.activity.TopupAmountSelectionActivity" />
-        <activity android:name="com.richonpay.activity.TopupBankSelectionActivity" />
-        <activity android:name="com.richonpay.activity.OrderDetailActivity" />
-        <activity android:name="com.richonpay.activity.MutationActivity" />
-        <activity android:name="com.richonpay.activity.IdentitiyVerificationActivity" />
-        <activity android:name="com.richonpay.activity.IdentityCameraActivity" />
-        <activity android:name="com.richonpay.activity.AccountSettingActivity" />
-        <activity android:name="com.richonpay.activity.ChangePhoneEmailActivity" />
-        <activity android:name="com.richonpay.activity.UserBankAccountActivity" />
-        <activity android:name="com.richonpay.activity.AddBankAccountActivity" />
-        <activity android:name="com.richonpay.activity.VerifyUserAccountActivity" />
-        <activity android:name="com.richonpay.activity.CameraResultActivity" />
-        <activity android:name="com.richonpay.activity.ForgotPasswordActivity" />
-        <activity android:name="com.richonpay.activity.CameraPreviewActivity" />
+        <activity android:name=".activity.VerifyOTPActivity" />
+        <activity android:name=".activity.PackageActivity" />
+        <activity android:name=".activity.TopupAmountSelectionActivity" />
+        <activity android:name=".activity.TopupBankSelectionActivity" />
+        <activity android:name=".activity.OrderDetailActivity" />
+        <activity android:name=".activity.MutationActivity" />
+        <activity android:name=".activity.IdentitiyVerificationActivity" />
+        <activity android:name=".activity.IdentityCameraActivity" />
+        <activity android:name=".activity.AccountSettingActivity" />
+        <activity android:name=".activity.ChangePhoneEmailPasswordActivity" />
+        <activity android:name=".activity.UserBankAccountActivity" />
+        <activity android:name=".activity.AddBankAccountActivity" />
+        <activity android:name=".activity.VerifyUserAccountActivity" />
+        <activity android:name=".activity.CameraResultActivity" />
+        <activity android:name=".activity.ForgotPasswordActivity" />
+        <activity android:name=".activity.CameraPreviewActivity" />
         <activity
-            android:name="com.richonpay.activity.WebViewActivity"
+            android:name=".activity.WebViewActivity"
             android:windowSoftInputMode="adjustResize" />
 
         <!-- SMS RECEIVER -->
         <receiver
-            android:name="com.richonpay.IncomingSms"
+            android:name=".IncomingSms"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.READ_SMS">
@@ -106,7 +106,7 @@
 
         <!-- SOCKET -->
         <service
-            android:name="com.richonpay.services.GPSTracker"
+            android:name=".services.GPSTracker"
             android:exported="false"
             android:label="SplitBillSocket" />
 
@@ -116,14 +116,14 @@
             android:value="barcode" />
 
         <service
-            android:name="com.richonpay.firebase.MyFirebaseInstanceIDService"
+            android:name=".firebase.MyFirebaseInstanceIDService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="com.richonpay.firebase.MyFirebaseMessagingService"
+            android:name=".firebase.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -158,6 +158,8 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="8fccacd91ed3cae596b7d1d6cd972cd35a791d9a" />
+
+        <activity android:name=".activity.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

@@ -301,17 +301,17 @@ public class ProfileFragment extends BaseFragment implements MainActivity.OnAcco
     }
 
     private void comingSoonDialog() {
-        android.support.v7.app.AlertDialog cameraDialog = new android.support.v7.app.AlertDialog.Builder(getActivity()).create();
-        cameraDialog.setCanceledOnTouchOutside(false);
-        cameraDialog.setTitle(getString(R.string.coming_soon));
-        cameraDialog.setMessage(getString(R.string.this_feature_is_still_on_development));
-        cameraDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.oke),
+        android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(getActivity()).create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setTitle(getString(R.string.coming_soon));
+        alertDialog.setMessage(getString(R.string.this_feature_is_still_on_development));
+        alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.oke),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-        cameraDialog.show();
-        cameraDialog.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+        alertDialog.show();
+        alertDialog.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
     }
 }

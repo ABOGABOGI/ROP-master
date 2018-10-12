@@ -169,4 +169,11 @@
     <string name="succesful_allcaps">BERHASIL</string>
     <string name="refund_allcaps">REFUND</string>
     <string name="declined_allcaps">DITOLAK</string>
+    <string name="insert_current_password">Masukkan kata sandi sekarang</string>
+    <string name="new_password">Kata Sandi Baru</string>
+    <string name="confirm_new_password">Konfirmasi Kata Sandi Baru</string>
+    <string name="change_password">Ganti Kata Sandi</string>
+    <string name="password_has_been_changed">Kata sandi Anda telah berhasil diganti</string>
+    <string name="wrong_password">Kata Sandi Salah</string>
+    <string name="wrong_password_please_try_again">Kata sandi yang anda masukkan salah, silahkan ulangi</string>
 </resources>

@@ -68,7 +68,8 @@
                     android:layout_marginBottom="@dimen/small"
                     android:background="@color/background"
                     android:orientation="horizontal"
-                    android:padding="@dimen/small">
+                    android:padding="@dimen/small"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -97,8 +98,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:minHeight="@dimen/mlarge"
                         android:minWidth="@dimen/mlarge"
+                        android:minHeight="@dimen/mlarge"
                         android:padding="@dimen/tiny"
                         android:text="@string/share_code" />
 
@@ -141,8 +142,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/pv_pin_view_item_radius"
-                android:paddingEnd="@dimen/small"
                 android:paddingStart="@dimen/small"
+                android:paddingEnd="@dimen/small"
                 android:weightSum="1">
 
                 <ImageView
@@ -155,8 +156,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingEnd="@dimen/tiny"
                     android:paddingStart="@dimen/tiny"
+                    android:paddingEnd="@dimen/tiny"
                     android:text="@string/bonus_mutation"
                     android:textSize="@dimen/text_16sp" />
 
@@ -181,8 +182,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/pv_pin_view_item_radius"
-                android:paddingEnd="@dimen/small"
                 android:paddingStart="@dimen/small"
+                android:paddingEnd="@dimen/small"
                 android:weightSum="1">
 
                 <ImageView
@@ -195,8 +196,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingEnd="@dimen/tiny"
                     android:paddingStart="@dimen/tiny"
+                    android:paddingEnd="@dimen/tiny"
                     android:text="@string/point_mutation"
                     android:textSize="@dimen/text_16sp" />
 

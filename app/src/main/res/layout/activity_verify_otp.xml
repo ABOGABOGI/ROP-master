@@ -32,9 +32,9 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/mlarge"
                 android:layout_marginStart="@dimen/mlarge"
                 android:layout_marginTop="@dimen/small"
+                android:layout_marginEnd="@dimen/mlarge"
                 android:text="@string/please_enter_otp_code_we_sent_you"
                 android:textAlignment="center" />
 
@@ -50,8 +50,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/normal"
                 android:layout_marginTop="@dimen/large"
+                android:layout_marginBottom="@dimen/normal"
                 android:orientation="vertical">
 
                 <com.richonpay.utils.PinView

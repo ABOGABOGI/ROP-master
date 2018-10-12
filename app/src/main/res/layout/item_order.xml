@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|start"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_16sp" />
+            android:textSize="@dimen/text_16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvStatus"
@@ -35,8 +35,8 @@
             android:background="@drawable/status_waiting"
             android:gravity="center"
             android:padding="@dimen/tiny"
-            android:paddingEnd="@dimen/small"
             android:paddingStart="@dimen/small"
+            android:paddingEnd="@dimen/small"
             android:text="@string/waiting"
             android:textAllCaps="true"
             android:textColor="@android:color/white"

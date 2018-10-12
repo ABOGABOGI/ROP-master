@@ -9,8 +9,8 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="@dimen/pv_pin_view_item_radius"
-    android:paddingEnd="@dimen/small"
     android:paddingStart="@dimen/small"
+    android:paddingEnd="@dimen/small"
     android:weightSum="1">
 
     <ImageView
@@ -24,8 +24,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingEnd="@dimen/tiny"
         android:paddingStart="@dimen/tiny"
+        android:paddingEnd="@dimen/tiny"
         android:textSize="@dimen/text_16sp" />
 
     <ImageView

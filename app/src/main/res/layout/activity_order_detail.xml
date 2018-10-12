@@ -20,9 +20,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/tiny"
                 android:layout_marginStart="@dimen/tiny"
                 android:layout_marginTop="@dimen/tiny"
+                android:layout_marginEnd="@dimen/tiny"
                 android:background="@drawable/rounded_corner_white"
                 android:orientation="vertical"
                 android:padding="@dimen/small">
@@ -55,8 +55,8 @@
                         android:background="@drawable/status_waiting"
                         android:gravity="center"
                         android:padding="@dimen/tiny"
-                        android:paddingEnd="@dimen/small"
                         android:paddingStart="@dimen/small"
+                        android:paddingEnd="@dimen/small"
                         android:text="@string/waiting"
                         android:textAllCaps="true"
                         android:textColor="@android:color/white"
@@ -76,9 +76,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/tiny"
                 android:layout_marginStart="@dimen/tiny"
                 android:layout_marginTop="@dimen/tiny"
+                android:layout_marginEnd="@dimen/tiny"
                 android:background="@drawable/rounded_corner_white"
                 android:orientation="vertical"
                 android:padding="@dimen/small">
@@ -104,9 +104,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/tiny"
                 android:layout_marginStart="@dimen/tiny"
                 android:layout_marginTop="@dimen/tiny"
+                android:layout_marginEnd="@dimen/tiny"
                 android:background="@drawable/rounded_corner_white"
                 android:orientation="vertical"
                 android:padding="@dimen/small">
@@ -150,9 +150,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/tiny"
                 android:layout_marginStart="@dimen/tiny"
                 android:layout_marginTop="@dimen/tiny"
+                android:layout_marginEnd="@dimen/tiny"
                 android:background="@drawable/rounded_corner_white"
                 android:orientation="vertical"
                 android:padding="@dimen/small">
@@ -196,11 +196,13 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvActionDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal"
                 android:gravity="center"
-                android:text="@string/klik_tombol_dibawah_ini_setelah_menyelesaikan_pembayaran" />
+                android:text="@string/klik_tombol_dibawah_ini_setelah_menyelesaikan_pembayaran"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnConfirmation"
@@ -209,7 +211,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/tiny"
                 android:text="@string/saya_sudah_bayar"
-                android:textSize="@dimen/text_16sp" />
+                android:textSize="@dimen/text_16sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvCancel"
@@ -225,7 +228,8 @@
                 android:text="@string/cancel_it"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_16sp" />
+                android:textSize="@dimen/text_16sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

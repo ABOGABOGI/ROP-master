@@ -92,8 +92,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingEnd="@dimen/tiny"
                         android:paddingStart="@dimen/tiny"
+                        android:paddingEnd="@dimen/tiny"
                         android:textSize="@dimen/text_20sp"
                         android:textStyle="bold" />
 
@@ -111,9 +111,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/tiny"
                     android:paddingStart="@dimen/tiny"
                     android:paddingTop="@dimen/small"
+                    android:paddingEnd="@dimen/tiny"
                     android:text="@string/digital_product" />
 
                 <android.support.v7.widget.RecyclerView

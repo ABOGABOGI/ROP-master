@@ -54,13 +54,19 @@ public interface APIService {
     @POST("v1/forgot-password")
     Call<APIResponse> forgotPassword(@Body RequestBody requestBody);
 
+    @POST("v1/user/check-password")
+    Call<APIResponse> checkPassword(@Body RequestBody requestBody);
+
+    @POST("v1/user/change-password")
+    Call<APIResponse> changePassword(@Body RequestBody requestBody);
+
     @POST("v1/package/upgrade")
     Call<APIResponse> requestPackage(@Body RequestBody requestBody);
 
     @POST("v1/package/upgrade/{orderID}/pay")
     Call<APIResponse> buyPackage(@Path("orderID") int bankID, @Body RequestBody requestBody);
 
-    @POST("v1/package/upgrade/{orderID}/cancel")
+    @POST("v1/package/upgrade/{orderID}/confirm-payment")
     Call<APIResponse> confirmPackagePayment(@Path("orderID") int orderID);
 
     @POST("v1/package/upgrade/{orderID}/cancel")

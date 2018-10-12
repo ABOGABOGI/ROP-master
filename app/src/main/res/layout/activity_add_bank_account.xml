@@ -22,9 +22,9 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/large"
+                android:paddingStart="@dimen/small"
                 android:paddingEnd="@dimen/small"
-                android:paddingStart="@dimen/small">
+                android:paddingBottom="@dimen/large">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,16 +92,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal"
-                android:paddingEnd="@dimen/small"
                 android:paddingStart="@dimen/small"
+                android:paddingEnd="@dimen/small"
                 android:text="@string/important_semicolon" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/small"
-                android:paddingEnd="@dimen/small"
                 android:paddingStart="@dimen/small"
+                android:paddingEnd="@dimen/small"
                 android:text="@string/add_bank_memo"
                 android:textColor="@color/colorPrimary" />
 

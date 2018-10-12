@@ -9,13 +9,12 @@ import android.util.Log;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.Date;
-import java.util.UUID;
-
 import com.richonpay.api.API;
 import com.richonpay.services.GPSTracker;
 import com.richonpay.utils.LocaleUtils;
+
+import java.util.Date;
+import java.util.UUID;
 
 public class App extends Application {
 

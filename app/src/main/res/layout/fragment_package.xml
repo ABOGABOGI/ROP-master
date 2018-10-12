@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/flBackground"
     android:background="@color/packageSilverBackground"
     android:orientation="vertical"
     android:padding="@dimen/small">
@@ -17,10 +17,10 @@
         android:padding="@dimen/small">
 
         <LinearLayout
-            android:layout_marginTop="@dimen/normal"
             android:id="@+id/llJoin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
             android:orientation="horizontal">
 
             <TextView
@@ -42,8 +42,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
             android:layout_marginTop="@dimen/pv_pin_view_item_radius"
+            android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
             android:background="@color/divider_color" />
 
         <LinearLayout
@@ -78,8 +78,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
             android:layout_marginTop="@dimen/pv_pin_view_item_radius"
+            android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
             android:background="@color/divider_color" />
 
         <LinearLayout
@@ -114,8 +114,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
             android:layout_marginTop="@dimen/pv_pin_view_item_radius"
+            android:layout_marginBottom="@dimen/pv_pin_view_item_radius"
             android:background="@color/divider_color" />
 
         <TextView

@@ -6,7 +6,7 @@ android {
         applicationId "com.richonpay"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
+        versionCode 4
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -15,13 +15,13 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', "proguard-fresco.pro"
-            buildConfigField "String", "ROOT_URL", "\"http://richonpay.com\""
+            buildConfigField "String", "ROOT_URL", "\"https://richonpay.com\""
         }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', "proguard-fresco.pro"
-            buildConfigField "String", "ROOT_URL", "\"http://richonpay.com\""
+            buildConfigField "String", "ROOT_URL", "\"https://richonpay.com\""
         }
     }
 }
