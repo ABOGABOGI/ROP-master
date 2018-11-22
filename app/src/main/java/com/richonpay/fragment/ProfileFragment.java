@@ -17,11 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.richonpay.R;
 import com.richonpay.activity.AccountSettingActivity;
 import com.richonpay.activity.LoginActivity;
@@ -39,6 +34,12 @@ import com.richonpay.model.APIResponse;
 import com.richonpay.model.ItemList;
 import com.richonpay.model.VerificationStatus;
 import com.richonpay.utils.Extension;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class ProfileFragment extends BaseFragment implements MainActivity.OnAccountTabListener {
 

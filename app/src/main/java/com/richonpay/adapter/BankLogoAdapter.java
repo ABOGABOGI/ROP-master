@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.BankAccount;
 import com.richonpay.utils.Extension;
+
+import butterknife.BindView;
 
 public class BankLogoAdapter extends BaseAdapter<BankAccount, BankLogoAdapter.ViewHolder> {
     private final BankLogoAdapter.OnItemClickListener mListener;

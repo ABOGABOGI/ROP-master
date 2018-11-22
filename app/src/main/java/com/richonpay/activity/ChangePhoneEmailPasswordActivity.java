@@ -123,6 +123,12 @@ public class ChangePhoneEmailPasswordActivity extends ToolbarActivity {
                 API.service().changePhone(requestBody).enqueue(new APICallback<APIResponse>(ChangePhoneEmailPasswordActivity.this) {
                     @Override
                     protected void onSuccess(APIResponse response) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.dismissLoading();
+                            }
+                        });
+
                         Intent intent = new Intent(ChangePhoneEmailPasswordActivity.this, VerifyOTPActivity.class);
                         intent.putExtra("TYPE", VerifyOTPActivity.OTP_TYPE[1]);
                         intent.putExtra("DESTINATION", Extension.validatePhoneNumber(etUpdated.getText().toString()));
@@ -140,6 +146,12 @@ public class ChangePhoneEmailPasswordActivity extends ToolbarActivity {
                 API.service().changeEmail(requestBody).enqueue(new APICallback<APIResponse>(ChangePhoneEmailPasswordActivity.this) {
                     @Override
                     protected void onSuccess(APIResponse response) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.dismissLoading();
+                            }
+                        });
+
                         Intent intent = new Intent(ChangePhoneEmailPasswordActivity.this, VerifyOTPActivity.class);
                         intent.putExtra("TYPE", VerifyOTPActivity.OTP_TYPE[2]);
                         intent.putExtra("DESTINATION", etUpdated.getText().toString());
@@ -157,6 +169,12 @@ public class ChangePhoneEmailPasswordActivity extends ToolbarActivity {
                 API.service().changePassword(requestBody).enqueue(new APICallback<APIResponse>(ChangePhoneEmailPasswordActivity.this) {
                     @Override
                     protected void onSuccess(APIResponse response) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.dismissLoading();
+                            }
+                        });
+
                         Intent previousScreen = new Intent(ChangePhoneEmailPasswordActivity.this, ChangePasswordActivity.class);
                         setResult(ChangePhoneEmailPasswordActivity.PASSWORD, previousScreen);
                         finish();

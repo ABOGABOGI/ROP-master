@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.File;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.richonpay.R;
 import com.richonpay.api.API;
 import com.richonpay.base.ToolbarActivity;
 import com.richonpay.model.VerificationStatus;
+
+import java.io.File;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class VerifyUserAccountActivity extends ToolbarActivity {
 

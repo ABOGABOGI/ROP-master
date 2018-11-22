@@ -5,6 +5,11 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
+import com.richonpay.App;
+import com.richonpay.BuildConfig;
+import com.richonpay.model.DeviceToken;
+import com.richonpay.model.User;
+import com.richonpay.utils.DateDeserializer;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -22,11 +27,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.richonpay.App;
-import com.richonpay.BuildConfig;
-import com.richonpay.model.DeviceToken;
-import com.richonpay.model.User;
-import com.richonpay.utils.DateDeserializer;
 
 import static com.richonpay.App.FIREBASE_TOKEN;
 import static com.richonpay.utils.LocaleUtils.ENGLISH;

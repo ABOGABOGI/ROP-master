@@ -9,11 +9,12 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.BuildConfig;
 import com.richonpay.R;
 import com.richonpay.api.API;
 import com.richonpay.base.ToolbarActivity;
+
+import butterknife.BindView;
 
 public class WebViewActivity extends ToolbarActivity {
 

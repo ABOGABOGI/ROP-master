@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/updatedBackground"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/normal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_corner"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/xxlarge"
+                    android:layout_height="@dimen/xxlarge"
+                    android:layout_marginTop="@dimen/normal"
+                    android:src="@drawable/checklist_andro" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transaction_successful"
+                    android:textSize="@dimen/text_16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tiny"
+                    android:text="@string/you_paid"
+                    android:textSize="@dimen/text_14sp" />
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_30sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/llCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/tiny">
+
+                    <TextView
+                        android:id="@+id/tvCodeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/redeem_code"
+                        android:textColor="@color/textColorFaded" />
+
+                    <TextView
+                        android:id="@+id/tvCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_18sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_rounded_corner_code"
+                        android:paddingTop="@dimen/pv_pin_view_item_line_width"
+                        android:paddingBottom="@dimen/pv_pin_view_item_line_width"
+                        android:paddingStart="@dimen/tiny"
+                        android:paddingEnd="@dimen/tiny"
+                        android:layout_marginStart="@dimen/tiny"
+                        android:layout_marginEnd="@dimen/tiny" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tiny"
+                    android:layout_marginTop="@dimen/small"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/tiny"
+                        android:layout_height="@dimen/small"
+                        android:background="@drawable/half_circle_background"
+                        android:rotation="180" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/dash_line"
+                        android:layerType="software" />
+
+                    <TextView
+                        android:layout_width="@dimen/tiny"
+                        android:layout_height="@dimen/small"
+                        android:background="@drawable/half_circle_background"
+                        android:padding="@dimen/elevation" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/small"
+                    android:paddingStart="@dimen/small">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/transaction_id_colon"
+                        android:textColor="@color/textColorFaded"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <TextView
+                        android:id="@+id/tvTransactionID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/small"
+                    android:paddingStart="@dimen/small">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/date_and_time_w_colon"
+                        android:textColor="@color/textColorFaded"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <TextView
+                        android:id="@+id/tvDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/small"
+                    android:paddingStart="@dimen/small">
+
+                    <TextView
+                        android:id="@+id/tvRecepientLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/recipient_w_colon"
+                        android:textColor="@color/textColorFaded"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <TextView
+                        android:id="@+id/tvRecepient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/llExtra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/small"
+                    android:paddingEnd="@dimen/small"
+                    android:layout_marginTop="@dimen/small"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvExtraLabel"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recipient_w_colon"
+                        android:textColor="@color/textColorFaded"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <TextView
+                        android:id="@+id/tvExtraValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnBackHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal"
+                android:background="@drawable/rounded_primary_button"
+                android:text="@string/take_me_back_to_home"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnTransactionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny"
+                android:background="@android:color/transparent"
+                android:text="@string/see_transaction_list"
+                android:textColor="@color/gradient_light" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

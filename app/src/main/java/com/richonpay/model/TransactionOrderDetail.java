@@ -44,6 +44,9 @@ public class TransactionOrderDetail {
     private double paymentProductAmount;
     @SerializedName("payment_product_fee")
     private double paymentProductFee;
+    private ProductPay product;
+    @SerializedName("sub_total")
+    private double subTotal;
 
 //     PAY = 0;
 //     SPLIT_PAY = 1;
@@ -246,5 +249,21 @@ public class TransactionOrderDetail {
 
     public void setPaymentProductFee(double paymentProductFee) {
         this.paymentProductFee = paymentProductFee;
+    }
+
+    public ProductPay getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductPay product) {
+        this.product = product;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
     }
 }

@@ -17,18 +17,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.richonpay.R;
 import com.richonpay.activity.MainActivity;
+import com.richonpay.activity.TopupAmountSelectionActivity;
 import com.richonpay.activity.WebViewActivity;
+import com.richonpay.activity.payment_product.GameVoucherListActivity;
+import com.richonpay.activity.payment_product.GameVoucherPhonePrepaidActivity;
+import com.richonpay.activity.payment_product.PayPLNActivity;
 import com.richonpay.adapter.ProductPaymentAdapter;
 import com.richonpay.api.API;
 import com.richonpay.api.BadRequest;
@@ -38,6 +33,15 @@ import com.richonpay.model.Banner;
 import com.richonpay.model.PaymentProduct;
 import com.richonpay.utils.BannerImageLoader;
 import com.richonpay.utils.Extension;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTabListener {
 
@@ -102,7 +106,9 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
                 public void onTabSelected(TabLayout.Tab tab) {
                     selectedBalanceTab = tab.getPosition();
                     Extension.setImage(getActivity(), ivBalance, (tab.getPosition() == 0 ? R.drawable.wallet : R.drawable.point));
-                    tvBalance.setText((selectedBalanceTab == 0 ? Extension.priceFormat(API.currentUser().getWallets().get(0).getBalance()) : Extension.numberPriceFormat(API.currentUser().getWallets().get(2).getBalance())));
+                    tvBalance.setText((selectedBalanceTab == 0 ?
+                            Extension.priceFormat(API.currentUser().getWallets().get(0).getBalance()) :
+                            Extension.numberPriceFormat(API.currentUser().getWallets().get(2).getBalance())));
                     btnBalanceAction.setText((tab.getPosition() == 0 ? getString(R.string.topup) : getString(R.string.exchange)));
                 }
 
@@ -121,28 +127,30 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             mAdapter = new ProductPaymentAdapter(getActivity(), new ProductPaymentAdapter.OnItemClickListener() {
                 @Override
-                public void onClick(View view, int id, int category) {
-//                    switch (category) {
-//                        case 0:
-//
-//                            break;
-//                        case 1:
-//
-//                            break;
-//                        case 2:
-//
-//                            break;
-//                        case 3:
-//
-//                            break;
-//                        case 4:
-//
-//                            break;
-//                        default:
-//                            break;
-//                    }
-                    comingSoonDialog();
-
+                public void onClick(View view, int id, int category, int position) {
+                    switch (position) {
+//                    switch (category) {       // NO API TO GET PPOB LIST SO NEED TO HARD CODE
+                        case 0:
+                            Intent phoneIntent = new Intent(getActivity(), GameVoucherPhonePrepaidActivity.class);
+//                            phoneIntent.putExtra("CATEGORY", id);     // NO API TO GET PPOB LIST SO NEED TO HARD CODE
+                            phoneIntent.putExtra("CATEGORY", 0);
+                            startActivity(phoneIntent);
+                            break;
+                        case 1:
+                            Intent intent = new Intent(getActivity(), PayPLNActivity.class);
+//                            intent.putExtra("CATEGORY", id);      // NO API TO GET PPOB LIST SO NEED TO HARD CODE
+                            intent.putExtra("CATEGORY", 3);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            Intent gameIntent = new Intent(getActivity(), GameVoucherListActivity.class);
+//                            gameIntent.putExtra("PRODUCT_ID", id);  // NO API TO GET PPOB LIST SO NEED TO HARD CODE
+                            gameIntent.putExtra("PRODUCT_ID", 4);
+                            startActivity(gameIntent);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             });
             recyclerView.setAdapter(mAdapter);
@@ -154,11 +162,11 @@ public class HomeFragment extends BaseFragment implements MainActivity.OnHomeTab
 
     @OnClick(R.id.btnBalanceAction)
     void balanceAction() {
-//        if (btnBalanceAction.getText().toString().matches(getString(R.string.topup))) {
-//            startActivity(new Intent(getActivity(), TopupAmountSelectionActivity.class));
-//        } else {
-        comingSoonDialog();
-//        }
+        if (btnBalanceAction.getText().toString().matches(getString(R.string.topup))) {
+            startActivity(new Intent(getActivity(), TopupAmountSelectionActivity.class));
+        } else {
+            comingSoonDialog();
+        }
     }
 
     @Override

@@ -15,7 +15,6 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-
 import com.richonpay.R;
 import com.richonpay.RootActivity;
 

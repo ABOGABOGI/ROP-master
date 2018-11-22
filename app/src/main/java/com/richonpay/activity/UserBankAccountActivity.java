@@ -17,13 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.parceler.Parcels;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.richonpay.R;
 import com.richonpay.adapter.BankListAdapter;
 import com.richonpay.api.API;
@@ -33,6 +26,14 @@ import com.richonpay.base.ToolbarActivity;
 import com.richonpay.model.APIResponse;
 import com.richonpay.model.BankAccount;
 import com.richonpay.utils.Extension;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class UserBankAccountActivity extends ToolbarActivity {
 
@@ -217,7 +218,7 @@ public class UserBankAccountActivity extends ToolbarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!isCashier) getBankAccount();
+        getBankAccount();
     }
 
     @OnClick(R.id.btnAdd)
@@ -226,22 +227,20 @@ public class UserBankAccountActivity extends ToolbarActivity {
     }
 
     private void getBankAccount() {
-        if (!isCashier) {
-            swipeRefresh.setRefreshing(true);
-            API.service().getUserBankAccount().enqueue(new APICallback<APIResponse>(this) {
-                @Override
-                protected void onSuccess(APIResponse response) {
-                    mAdapter.setItems(response.getData().getBankAccounts());
-                    swipeRefresh.setRefreshing(false);
-                }
+        swipeRefresh.setRefreshing(true);
+        API.service().getUserBankAccount().enqueue(new APICallback<APIResponse>(this) {
+            @Override
+            protected void onSuccess(APIResponse response) {
+                mAdapter.setItems(response.getData().getBankAccounts());
+                swipeRefresh.setRefreshing(false);
+            }
 
-                @Override
-                protected void onError(BadRequest error) {
-                    Toast.makeText(UserBankAccountActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
-                    swipeRefresh.setRefreshing(false);
-                }
-            });
-        }
+            @Override
+            protected void onError(BadRequest error) {
+                Toast.makeText(UserBankAccountActivity.this, error.errorDetails, Toast.LENGTH_SHORT).show();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback() {

@@ -13,13 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
-
-import java.util.Map;
-import java.util.Set;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import okhttp3.MultipartBody;
 import com.richonpay.R;
 import com.richonpay.api.API;
 import com.richonpay.api.APICallback;
@@ -27,6 +20,13 @@ import com.richonpay.api.BadRequest;
 import com.richonpay.base.BaseActivity;
 import com.richonpay.model.APIResponse;
 import com.richonpay.utils.Extension;
+
+import java.util.Map;
+import java.util.Set;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import okhttp3.MultipartBody;
 
 public class LoginActivity extends BaseActivity {
 

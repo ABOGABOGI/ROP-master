@@ -2,6 +2,7 @@ package com.richonpay.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,11 @@ public class APIModels {
     private UpgradeRequest upgradeRequest;
     @SerializedName("upgrade_requests")
     private List<UpgradeRequest> upgradeRequests;
+    private TransactionOrder order;
+    private List<ExploreCategory> categories;
+    private Receipt receipt;
+    private List<PaymentProduct> paymentProducts = new ArrayList<>();
+    private String version;
 
     public String getToken() {
         return token;
@@ -92,5 +98,45 @@ public class APIModels {
 
     public void setUpgradeRequests(List<UpgradeRequest> upgradeRequests) {
         this.upgradeRequests = upgradeRequests;
+    }
+
+    public TransactionOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(TransactionOrder order) {
+        this.order = order;
+    }
+
+    public List<ExploreCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<ExploreCategory> categories) {
+        this.categories = categories;
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
+    }
+
+    public List<PaymentProduct> getPaymentProducts() {
+        return paymentProducts;
+    }
+
+    public void setPaymentProducts(List<PaymentProduct> paymentProducts) {
+        this.paymentProducts = paymentProducts;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

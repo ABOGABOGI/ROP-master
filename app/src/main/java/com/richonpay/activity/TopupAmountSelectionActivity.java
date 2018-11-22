@@ -12,12 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.richonpay.R;
 import com.richonpay.adapter.TopUpAmountAdapter;
 import com.richonpay.api.API;
@@ -28,6 +24,12 @@ import com.richonpay.model.APIResponse;
 import com.richonpay.model.TopUpRequest;
 import com.richonpay.utils.Extension;
 import com.richonpay.utils.NumberTextWatcher;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class TopupAmountSelectionActivity extends ToolbarActivity {
 
@@ -129,6 +131,18 @@ public class TopupAmountSelectionActivity extends ToolbarActivity {
 
     @OnClick(R.id.btnProceed)
     void submitAmount() {
-        startActivity(new Intent(this, TopupBankSelectionActivity.class));
+        if (etAmount.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.please_input_an_amount, Toast.LENGTH_SHORT).show();
+        } else {
+            double amount = Double.parseDouble(etAmount.getText().toString().replaceAll(",", ""));
+
+            if (amount < 10000) {
+                Toast.makeText(this, R.string.topup_min_value_message, Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(this, TopupBankSelectionActivity.class);
+                intent.putExtra("AMOUNT", amount);
+                startActivity(intent);
+            }
+        }
     }
 }

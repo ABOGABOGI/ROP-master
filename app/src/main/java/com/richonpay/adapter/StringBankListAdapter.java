@@ -6,10 +6,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.BankInfo;
+
+import butterknife.BindView;
 
 public class StringBankListAdapter extends BaseAdapter<BankInfo, StringBankListAdapter.ViewHolder> {
     private final StringBankListAdapter.OnItemClickListener mListener;

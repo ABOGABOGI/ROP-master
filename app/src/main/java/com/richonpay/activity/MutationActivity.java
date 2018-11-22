@@ -7,11 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.adapter.ViewPagerAdapter;
 import com.richonpay.base.ToolbarActivity;
 import com.richonpay.fragment.MutationFragment;
+
+import butterknife.BindView;
 
 public class MutationActivity extends ToolbarActivity {
 

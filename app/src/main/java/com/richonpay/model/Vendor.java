@@ -55,6 +55,7 @@ public class Vendor {
     private BusinessSocialLink socmed;
     private List<VendorGallery> galleries;
     private String description;
+    private ExploreCategory primaryCategory;
 
     public int getId() {
         return id;
@@ -302,5 +303,13 @@ public class Vendor {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ExploreCategory getPrimaryCategory() {
+        return primaryCategory;
+    }
+
+    public void setPrimaryCategory(ExploreCategory primaryCategory) {
+        this.primaryCategory = primaryCategory;
     }
 }

@@ -25,6 +25,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.richonpay.R;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -37,8 +38,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import com.richonpay.R;
 
 public class Extension {
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;

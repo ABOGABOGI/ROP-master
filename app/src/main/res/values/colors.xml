@@ -27,6 +27,7 @@
     <color name="updatedGrey">#E8E9EA</color>
     <color name="updatedDarkButtonText">#03497E</color>
     <color name="updatedLightBlue">#bfe6ff</color>
+    <color name="updatedLightRed">#FFD9D8</color>
     <color name="updatedLightBlueDarkened">#78CAFF</color>
 
     <color name="textColorMain">#464646</color>

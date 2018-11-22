@@ -16,11 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.richonpay.R;
 import com.richonpay.activity.LoginActivity;
 import com.richonpay.api.API;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;

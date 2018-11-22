@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.PaymentProduct;
+
+import butterknife.BindView;
 
 public class NotificationAdapter extends BaseAdapter<PaymentProduct, NotificationAdapter.ViewHolder> {
     private final NotificationAdapter.OnItemClickListener mListener;

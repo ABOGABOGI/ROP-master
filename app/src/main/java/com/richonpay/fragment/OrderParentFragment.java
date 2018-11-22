@@ -5,10 +5,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.adapter.ViewPagerAdapter;
 import com.richonpay.base.BaseFragment;
+
+import butterknife.BindView;
 
 import static com.richonpay.fragment.OrderFragment.TRANSACTION_TYPE;
 

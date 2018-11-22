@@ -10,15 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
-
-import java.util.Map;
-import java.util.Set;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import com.richonpay.R;
 import com.richonpay.api.API;
 import com.richonpay.api.APICallback;
@@ -28,6 +19,15 @@ import com.richonpay.model.APIResponse;
 import com.richonpay.model.User;
 import com.richonpay.model.VerificationStatus;
 import com.richonpay.utils.Extension;
+
+import java.util.Map;
+import java.util.Set;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CameraResultActivity extends ToolbarActivity {
 
@@ -79,6 +79,7 @@ public class CameraResultActivity extends ToolbarActivity {
             intent.putExtra("TYPE", CameraResultActivity.SELFIE);
             startActivityForResult(intent, VerifyUserAccountActivity.VERIFY_ACCOUNT);
         } else {
+            btnUsePhoto.setEnabled(true);
             runOnUiThread(new Runnable() {
                 public void run() {
                     Extension.showLoading(CameraResultActivity.this);
@@ -86,8 +87,19 @@ public class CameraResultActivity extends ToolbarActivity {
             });
             MultipartBody.Builder buildernew = new MultipartBody.Builder();
             buildernew.setType(MultipartBody.FORM);
-            buildernew.addFormDataPart("nric_picture", VerifyUserAccountActivity.selectedNRIC.getName(), RequestBody.create(MediaType.parse("image/jpeg"), VerifyUserAccountActivity.selectedNRIC));
-            buildernew.addFormDataPart("selfie_picture", VerifyUserAccountActivity.selectedSelfie.getName(), RequestBody.create(MediaType.parse("image/jpeg"), VerifyUserAccountActivity.selectedSelfie));
+
+            if (VerifyUserAccountActivity.selectedNRIC != null) {
+                buildernew.addFormDataPart("nric_picture", VerifyUserAccountActivity.selectedNRIC.getName(), RequestBody.create(MediaType.parse("image/jpeg"), VerifyUserAccountActivity.selectedNRIC));
+            } else {
+                return;
+            }
+
+            if (VerifyUserAccountActivity.selectedSelfie != null) {
+                buildernew.addFormDataPart("selfie_picture", VerifyUserAccountActivity.selectedSelfie.getName(), RequestBody.create(MediaType.parse("image/jpeg"), VerifyUserAccountActivity.selectedSelfie));
+            } else {
+                return;
+            }
+
             MultipartBody requestBody = buildernew.build();
 
             API.service().uploadUserVerification(requestBody).enqueue(new APICallback<APIResponse>(CameraResultActivity.this) {

@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.UpgradeRequest;
 import com.richonpay.utils.Extension;
+
+import butterknife.BindView;
 
 public class OrderAdapter extends BaseAdapter<UpgradeRequest, OrderAdapter.ViewHolder> {
     private final OrderAdapter.OnItemClickListener mListener;

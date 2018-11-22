@@ -9,12 +9,11 @@ import android.support.annotation.StringDef;
 import android.util.Log;
 
 import com.orhanobut.hawk.Hawk;
+import com.richonpay.App;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
-
-import com.richonpay.App;
 
 public class LocaleUtils {
 

@@ -11,11 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.ItemList;
 import com.richonpay.utils.Extension;
+
+import butterknife.BindView;
 
 public class ItemListAdapter extends BaseAdapter<ItemList, ItemListAdapter.ViewHolder> {
 

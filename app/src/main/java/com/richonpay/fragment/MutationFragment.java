@@ -14,16 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.richonpay.R;
 import com.richonpay.adapter.MutationAdapter;
 import com.richonpay.base.BaseFragment;
 import com.richonpay.model.TransactionOrderDetail;
 import com.richonpay.utils.Extension;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.richonpay.activity.MutationActivity.TYPE_BALANCE;
 import static com.richonpay.activity.MutationActivity.TYPE_BONUS_PENDING;

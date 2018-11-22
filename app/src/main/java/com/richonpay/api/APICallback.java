@@ -12,16 +12,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import com.richonpay.App;
 import com.richonpay.R;
 import com.richonpay.activity.LoginActivity;
 import com.richonpay.model.APIResponse;
 import com.richonpay.model.User;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class APICallback<T> implements Callback<T> {
     private final Context context;

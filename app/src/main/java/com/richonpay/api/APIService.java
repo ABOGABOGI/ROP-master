@@ -1,13 +1,15 @@
 package com.richonpay.api;
 
+import com.richonpay.model.APIResponse;
+import com.richonpay.model.BankAccount;
+import com.richonpay.model.PaymentProductBody;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import com.richonpay.model.APIResponse;
-import com.richonpay.model.BankAccount;
 
 public interface APIService {
 
@@ -95,4 +97,28 @@ public interface APIService {
 
     @POST("v1/user/upload-identity")
     Call<APIResponse> uploadUserVerification(@Body RequestBody requestBody);
+
+    @GET("v1/payment/{id}")
+    Call<APIResponse> getPaymentProductByType(@Path("id") int typeId);
+
+    @POST("v1/payment/{id}/payment")
+    Call<APIResponse> payProduct(@Path("id") int category_id, @Body PaymentProductBody paymentProductBody);
+
+    @GET("v1/payment/{type_id}/{cat_id}")
+    Call<APIResponse> getPaymentProductByCategory(@Path("type_id") int typeId, @Path("cat_id") int catId);
+
+    @POST("v1/payment/{id}/inquiry")
+    Call<APIResponse> inquiryPLN(@Path("id") int id, @Body PaymentProductBody paymentProductBody);
+
+    @POST("v1/payment/{id}/payment")
+    Call<APIResponse> paymentPLN(@Path("id") int id, @Body PaymentProductBody paymentProductBody);
+
+    @POST("v1/balance/topup")
+    Call<APIResponse> requestTopup(@Body RequestBody requestBody);
+
+    @POST("v1/balance/topup/{orderID}/paid")
+    Call<APIResponse> confirmTopup(@Path("orderID") int orderID);
+
+    @POST("v1/balance/topup/{orderID}/cancel")
+    Call<APIResponse> cancelTopup(@Path("orderID") int orderID);
 }

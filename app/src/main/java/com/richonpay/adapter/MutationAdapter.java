@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Date;
-
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.TransactionOrderDetail;
 import com.richonpay.utils.Extension;
+
+import java.util.Date;
+
+import butterknife.BindView;
 
 public class MutationAdapter extends BaseAdapter<TransactionOrderDetail, MutationAdapter.ViewHolder> {
     private final MutationAdapter.OnItemClickListener mListener;

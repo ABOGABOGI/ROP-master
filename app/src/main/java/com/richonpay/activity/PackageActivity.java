@@ -223,7 +223,8 @@ public class PackageActivity extends ToolbarActivity {
                             StringBuilder errorMessage = new StringBuilder();
                             Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                             for (Map.Entry<String, JsonElement> entry : entries) {
-                                errorMessage.append(entry.getValue().getAsString()).append("\n");;
+                                errorMessage.append(entry.getValue().getAsString()).append("\n");
+                                ;
                             }
 
                             AlertDialog alertDialog = new AlertDialog.Builder(PackageActivity.this).create();

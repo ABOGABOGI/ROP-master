@@ -14,15 +14,14 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.List;
-import java.util.Locale;
-
 import com.richonpay.App;
 import com.richonpay.R;
 import com.richonpay.api.API;
 import com.richonpay.base.BaseActivity;
 import com.richonpay.utils.LocaleUtils;
+
+import java.util.List;
+import java.util.Locale;
 
 public class SplashActivity extends BaseActivity {
 

@@ -12,11 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.PaymentProduct;
 import com.richonpay.utils.Extension;
+
+import butterknife.BindView;
 
 public class ProductPaymentAdapter extends BaseAdapter<PaymentProduct, ProductPaymentAdapter.ViewHolder> {
     private final ProductPaymentAdapter.OnItemClickListener mListener;
@@ -33,7 +34,7 @@ public class ProductPaymentAdapter extends BaseAdapter<PaymentProduct, ProductPa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ProductPaymentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProductPaymentAdapter.ViewHolder holder, final int position) {
         try {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -64,7 +65,7 @@ public class ProductPaymentAdapter extends BaseAdapter<PaymentProduct, ProductPa
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onClick(v, item.getId(), item.getProductCode());
+                    mListener.onClick(v, item.getId(), item.getProductCode(), holder.getAdapterPosition());
                 }
             });
         } catch (Exception exception) {
@@ -85,6 +86,6 @@ public class ProductPaymentAdapter extends BaseAdapter<PaymentProduct, ProductPa
     }
 
     public interface OnItemClickListener {
-        void onClick(View view, int id, int category);
+        void onClick(View view, int id, int category, int position);
     }
 }

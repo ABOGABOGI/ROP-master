@@ -9,10 +9,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseFragment;
 import com.richonpay.utils.Extension;
+
+import butterknife.BindView;
 
 public class PackageFragment extends BaseFragment {
 

@@ -5,8 +5,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.CountDownTimer;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.hawk.Hawk;
 import com.richonpay.api.API;
@@ -15,6 +17,8 @@ import com.richonpay.utils.LocaleUtils;
 
 import java.util.Date;
 import java.util.UUID;
+
+import io.fabric.sdk.android.Fabric;
 
 public class App extends Application {
 
@@ -43,6 +47,12 @@ public class App extends Application {
         App.variableChangeListener = variableChangeListener;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
     public interface AuthorizedChangeListener {
         void onVariableChanged(boolean isAuthorized);
     }
@@ -54,17 +64,9 @@ public class App extends Application {
     }
 
     @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-//        MultiDex.install(this);
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
-//        if (!BuildConfig.DEBUG) {
-//        Fabric.with(this, new Crashlytics());
-//        }
+        Fabric.with(this, new Crashlytics());
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         Hawk.init(this).build();

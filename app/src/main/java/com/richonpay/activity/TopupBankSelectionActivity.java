@@ -13,15 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonElement;
-
-import org.parceler.Parcels;
-
-import java.util.Map;
-import java.util.Set;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import okhttp3.MultipartBody;
 import com.richonpay.R;
 import com.richonpay.adapter.BankLogoAdapter;
 import com.richonpay.api.API;
@@ -31,6 +22,16 @@ import com.richonpay.base.ToolbarActivity;
 import com.richonpay.model.APIResponse;
 import com.richonpay.model.UpgradeRequest;
 import com.richonpay.utils.Extension;
+
+import org.parceler.Parcels;
+
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import okhttp3.MultipartBody;
 
 public class TopupBankSelectionActivity extends ToolbarActivity {
 
@@ -52,6 +53,7 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
     private boolean isPackageUpgrade = false;
     private Integer selectedBank = null;
     private UpgradeRequest upgradeRequest;
+    private double topupAmount = 0d;
 
     @Override
     protected int getContentViewResource() {
@@ -67,6 +69,7 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
             if (extra != null) {
                 isPackageUpgrade = extra.getBoolean("PACKAGE", false);
                 upgradeRequest = Parcels.unwrap(getIntent().getParcelableExtra("UPGRADE_REQUEST"));
+                topupAmount = extra.getDouble("AMOUNT", 0d);
 
                 if (upgradeRequest != null) {
                     tvTransactionCode.setText(String.valueOf(getString(R.string.transaction_code) + " " + upgradeRequest.getCode()));
@@ -77,6 +80,12 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
                     }
                     tvStatus.setText(getString(R.string.waiting));
                     tvDate.setText(Extension.receiptDetailDateFormat.format(upgradeRequest.getCreatedAt()));
+                } else {
+//                    tvTransactionCode.setText(String.valueOf(getString(R.string.transaction_code) + " "));
+                    tvTransactionCode.setVisibility(View.GONE);
+                    tvAmount.setText(String.valueOf(getString(R.string.topup) + " " + Extension.priceFormat(topupAmount)));
+                    tvStatus.setText(getString(R.string.waiting));
+                    tvDate.setText(Extension.receiptDetailDateFormat.format(new Date()));
                 }
             }
 
@@ -93,7 +102,7 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
                 @Override
                 protected void onSuccess(APIResponse response) {
                     mAdapter.setItems(response.getData().getBankAccounts());
-                    if (response.getData().getBankAccounts().size() > 0){
+                    if (response.getData().getBankAccounts().size() > 0) {
                         selectedBank = response.getData().getBankAccounts().get(0).getId();
                     }
                 }
@@ -182,7 +191,8 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
                             StringBuilder errorMessage = new StringBuilder();
                             Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                             for (Map.Entry<String, JsonElement> entry : entries) {
-                                errorMessage.append(entry.getValue().getAsString()).append("\n");;
+                                errorMessage.append(entry.getValue().getAsString()).append("\n");
+                                ;
                             }
 
                             AlertDialog alertDialog = new AlertDialog.Builder(TopupBankSelectionActivity.this).create();
@@ -214,9 +224,89 @@ public class TopupBankSelectionActivity extends ToolbarActivity {
             });
         } else {
 
-            Intent intent = new Intent(this, OrderDetailActivity.class);
-            intent.putExtra("PACKAGE", isPackageUpgrade);
-            startActivity(intent);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    Extension.showLoading(TopupBankSelectionActivity.this);
+                }
+            });
+            MultipartBody.Builder buildernew = new MultipartBody.Builder();
+            buildernew.setType(MultipartBody.FORM);
+            buildernew.addFormDataPart("dest_bank_account_id", String.valueOf((selectedBank)));
+            buildernew.addFormDataPart("amount", String.valueOf((topupAmount)));
+            MultipartBody requestBody = buildernew.build();
+
+            API.service().requestTopup(requestBody).enqueue(new APICallback<APIResponse>(TopupBankSelectionActivity.this) {
+                @Override
+                protected void onSuccess(APIResponse response) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Extension.dismissLoading();
+                        }
+                    });
+                    btnPay.setEnabled(true);
+
+                    Intent intent = new Intent(TopupBankSelectionActivity.this, OrderDetailActivity.class);
+                    intent.putExtra("ORDER_DETAIL", Parcels.wrap(response.getData().getOrder()));
+                    intent.putExtra("IS_ORDER",true);
+                    startActivity(intent);
+                }
+
+                @Override
+                protected void onError(BadRequest error) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Extension.dismissLoading();
+                        }
+                    });
+                    btnPay.setEnabled(true);
+                    if (error.code == 400) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(TopupBankSelectionActivity.this).create();
+                        alertDialog.setTitle(getString(R.string.sorry));
+                        alertDialog.setMessage(error.errorDetails);
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+
+                    } else {
+                        try {
+                            StringBuilder errorMessage = new StringBuilder();
+                            Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
+                            for (Map.Entry<String, JsonElement> entry : entries) {
+                                errorMessage.append(entry.getValue().getAsString()).append("\n");
+                                ;
+                            }
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(TopupBankSelectionActivity.this).create();
+                            alertDialog.setTitle(getString(R.string.sorry));
+                            alertDialog.setMessage(errorMessage.toString());
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+
+                        } catch (Exception exception) {
+                            Log.e("loginAPI", "" + exception);
+                            AlertDialog alertDialog = new AlertDialog.Builder(TopupBankSelectionActivity.this).create();
+                            alertDialog.setTitle(getString(R.string.sorry));
+                            alertDialog.setMessage(error.errorDetails);
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                    }
+                }
+            });
         }
     }
 

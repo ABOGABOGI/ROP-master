@@ -17,6 +17,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
+import com.richonpay.R;
+import com.richonpay.api.API;
+import com.richonpay.api.APICallback;
+import com.richonpay.api.BadRequest;
+import com.richonpay.base.ToolbarActivity;
+import com.richonpay.model.APIResponse;
+import com.richonpay.model.User;
+import com.richonpay.utils.Extension;
+import com.richonpay.utils.PinView;
 
 import java.util.Map;
 import java.util.Set;
@@ -27,15 +36,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import com.richonpay.R;
-import com.richonpay.api.API;
-import com.richonpay.api.APICallback;
-import com.richonpay.api.BadRequest;
-import com.richonpay.base.ToolbarActivity;
-import com.richonpay.model.APIResponse;
-import com.richonpay.model.User;
-import com.richonpay.utils.Extension;
-import com.richonpay.utils.PinView;
 
 public class VerifyOTPActivity extends ToolbarActivity {
 
@@ -122,6 +122,8 @@ public class VerifyOTPActivity extends ToolbarActivity {
 
             if (otpType == OTP_TYPE[3]) {
                 resendOTP();
+            } else if (otpType == OTP_TYPE[1] || otpType == OTP_TYPE[2]) {
+                tvResend.setVisibility(View.GONE);
             }
         }
 
@@ -237,7 +239,8 @@ public class VerifyOTPActivity extends ToolbarActivity {
                                 StringBuilder errorMessage = new StringBuilder();
                                 Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                                 for (Map.Entry<String, JsonElement> entry : entries) {
-                                    errorMessage.append(entry.getValue().getAsString()).append("\n");;
+                                    errorMessage.append(entry.getValue().getAsString()).append("\n");
+                                    ;
                                 }
 
                                 AlertDialog alertDialog = new AlertDialog.Builder(VerifyOTPActivity.this).create();
@@ -305,7 +308,8 @@ public class VerifyOTPActivity extends ToolbarActivity {
                                 StringBuilder errorMessage = new StringBuilder();
                                 Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                                 for (Map.Entry<String, JsonElement> entry : entries) {
-                                    errorMessage.append(entry.getValue().getAsString()).append("\n");;
+                                    errorMessage.append(entry.getValue().getAsString()).append("\n");
+                                    ;
                                 }
 
                                 AlertDialog alertDialog = new AlertDialog.Builder(VerifyOTPActivity.this).create();

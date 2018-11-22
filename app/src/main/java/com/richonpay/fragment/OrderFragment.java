@@ -107,10 +107,16 @@ public class OrderFragment extends BaseFragment {
                     if (response.getData() != null) {
                         if (response.getData().getUpgradeRequests() != null) {
                             if (response.getData().getUpgradeRequests().size() > 0) {
-                                llEmptyList.setVisibility(View.GONE);
+                                if (llEmptyList != null) {
+                                    llEmptyList.setVisibility(View.GONE);
+                                }
+
                                 mAdapter.setItems(response.getData().getUpgradeRequests());
+
                             } else {
-                                llEmptyList.setVisibility(View.VISIBLE);
+                                if (llEmptyList != null) {
+                                    llEmptyList.setVisibility(View.VISIBLE);
+                                }
                             }
                         }
                     }

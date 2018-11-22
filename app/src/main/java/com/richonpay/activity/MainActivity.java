@@ -1,10 +1,14 @@
 package com.richonpay.activity;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -14,12 +18,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
+import com.orhanobut.hawk.Hawk;
+import com.richonpay.App;
 import com.richonpay.R;
 import com.richonpay.adapter.ViewPagerAdapter;
 import com.richonpay.api.API;
@@ -35,6 +42,8 @@ import com.richonpay.fragment.ScanQRFragment;
 import com.richonpay.model.APIModels;
 import com.richonpay.model.APIResponse;
 import com.richonpay.utils.LockableViewPager;
+
+import butterknife.BindView;
 
 public class MainActivity extends ToolbarActivity {
 
@@ -54,7 +63,7 @@ public class MainActivity extends ToolbarActivity {
     private OnAccountTabListener mAccountTabListener;
     private OnHomeTabListener mHomeTabListener;
     private int selectedTab = 0;
-
+    private Dialog dialog;
 
     @Override
     protected int getContentViewResource() {
@@ -64,6 +73,11 @@ public class MainActivity extends ToolbarActivity {
     @Override
     protected void onViewCreated() {
         toolbar.setNavigationIcon(null);
+        dialog = new Dialog(this, R.style.darkPopupAnimation);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_new_update);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         try {
             Bundle extra = getIntent().getExtras();
@@ -427,6 +441,25 @@ public class MainActivity extends ToolbarActivity {
                     if (response.getData() != null) {
                         mHomeTabListener.onDataReceived(response.getData());
                     }
+
+                    PackageInfo pinfo = null;
+                    try {
+                        pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                        String currentVersion = pinfo.versionName;
+                        String hawkVersion = Hawk.get(App.SKIPPED_VERSION, "");
+                        String APIVersion = response.getData().getVersion();
+                        if (APIVersion != null){
+                            if (!currentVersion.matches(APIVersion)) {
+                                if (!hawkVersion.matches(APIVersion)) {
+                                    showUpdate(APIVersion);
+                                }
+                            } else {
+                                Hawk.put(App.SKIPPED_VERSION, APIVersion);
+                            }
+                        }
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -438,6 +471,34 @@ public class MainActivity extends ToolbarActivity {
             });
         } catch (Exception exception) {
             Log.e("fetchProfile", "" + exception);
+        }
+    }
+
+    private void showUpdate(final String version) {
+        if (dialog != null) {
+            if (!dialog.isShowing()) {
+                Button btnUpdate = dialog.findViewById(R.id.btnUpdate);
+                btnUpdate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String url = "http://play.google.com/store/apps/details?id=" + getPackageName();
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                    }
+                });
+
+                Button btnSkip = dialog.findViewById(R.id.btnSkip);
+                btnSkip.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Hawk.put(App.SKIPPED_VERSION, version);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
         }
     }
 

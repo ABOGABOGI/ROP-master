@@ -22,6 +22,9 @@ import android.widget.Toast;
 
 import com.google.android.cameraview.AspectRatio;
 import com.google.android.cameraview.CameraView;
+import com.richonpay.R;
+import com.richonpay.base.ToolbarActivity;
+import com.richonpay.utils.AspectRatioFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,9 +34,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.richonpay.R;
-import com.richonpay.base.ToolbarActivity;
-import com.richonpay.utils.AspectRatioFragment;
+import id.zelory.compressor.Compressor;
 
 public class CameraPreviewActivity extends ToolbarActivity implements AspectRatioFragment.Listener {
 
@@ -135,9 +136,7 @@ public class CameraPreviewActivity extends ToolbarActivity implements AspectRati
         return mBackgroundHandler;
     }
 
-    private CameraView.Callback mCallback
-            = new CameraView.Callback() {
-
+    private CameraView.Callback mCallback = new CameraView.Callback() {
         @Override
         public void onCameraOpened(CameraView cameraView) {
             Log.e("asdf", "onCameraOpened");
@@ -151,18 +150,15 @@ public class CameraPreviewActivity extends ToolbarActivity implements AspectRati
         @Override
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             Log.e("asdf", "onPictureTaken " + data.length);
-            Toast.makeText(cameraView.getContext(), R.string.picture_taken, Toast.LENGTH_SHORT)
-                    .show();
+
             getBackgroundHandler().post(new Runnable() {
                 @Override
                 public void run() {
                     File file;
                     if (type == CameraResultActivity.IDENTITY) {
                         file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), String.valueOf(new Date().getTime()) + "nric.jpg");
-                        VerifyUserAccountActivity.selectedNRIC = file;
                     } else {
                         file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), String.valueOf(new Date().getTime()) + "selfie.jpg");
-                        VerifyUserAccountActivity.selectedSelfie = file;
                     }
 
                     OutputStream os = null;
@@ -172,10 +168,20 @@ public class CameraPreviewActivity extends ToolbarActivity implements AspectRati
                         os.close();
                     } catch (IOException e) {
                         Log.e("asdf try", "Cannot write to " + file, e);
+                        fabCapture.setEnabled(true);
                     } finally {
                         if (os != null) {
                             try {
                                 os.close();
+
+                                Log.e("COMPRESS", "START");
+                                if (type == CameraResultActivity.IDENTITY) {
+                                    VerifyUserAccountActivity.selectedNRIC = new Compressor(CameraPreviewActivity.this).compressToFile(file);
+                                    if (VerifyUserAccountActivity.selectedNRIC == null) return;
+                                } else {
+                                    VerifyUserAccountActivity.selectedSelfie = new Compressor(CameraPreviewActivity.this).compressToFile(file);
+                                    if (VerifyUserAccountActivity.selectedNRIC == null) return;
+                                }
 
                                 Intent intent = new Intent(CameraPreviewActivity.this, CameraResultActivity.class);
                                 intent.putExtra("TYPE", type);
@@ -183,6 +189,7 @@ public class CameraPreviewActivity extends ToolbarActivity implements AspectRati
 
                             } catch (IOException e) {
                                 Log.e("asdf finally", "Cannot write to " + file, e);
+                                fabCapture.setEnabled(true);
                             }
                         }
                     }

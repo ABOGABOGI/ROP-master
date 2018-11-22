@@ -159,7 +159,15 @@
             android:name="io.fabric.ApiKey"
             android:value="8fccacd91ed3cae596b7d1d6cd972cd35a791d9a" />
 
-        <activity android:name=".activity.ChangePasswordActivity"></activity>
+        <activity android:name=".activity.ChangePasswordActivity"/>
+        <activity android:name=".activity.transaction_detail.PaymentProductActivity"/>
+        <activity android:name=".activity.payment_product.GameVoucherPhonePrepaidActivity"/>
+        <activity android:name=".activity.payment_product.PaymentProductSelectionActivity"/>
+        <activity android:name=".activity.payment_product.PayPLNActivity"/>
+        <activity android:name=".activity.payment_product.GameVoucherListActivity"/>
+        <activity android:name=".activity.payment_product.SearchWaterBillLocationActivity"/>
+        <activity android:name=".activity.payment_product.WaterbillActivity"/>
+        <activity android:name=".activity.SuccessTransactionActivity"/>
     </application>
 
 </manifest>

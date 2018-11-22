@@ -17,14 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonElement;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.richonpay.R;
 import com.richonpay.adapter.StringBankListAdapter;
 import com.richonpay.api.API;
@@ -35,6 +27,14 @@ import com.richonpay.model.APIResponse;
 import com.richonpay.model.BankAccount;
 import com.richonpay.model.BankInfo;
 import com.richonpay.utils.Extension;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class AddBankAccountActivity extends ToolbarActivity {
 
@@ -185,7 +185,8 @@ public class AddBankAccountActivity extends ToolbarActivity {
                             StringBuilder errorMessage = new StringBuilder();
                             Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                             for (Map.Entry<String, JsonElement> entry : entries) {
-                                errorMessage.append(entry.getValue().getAsString()).append("\n");;
+                                errorMessage.append(entry.getValue().getAsString()).append("\n");
+                                ;
                             }
 
                             AlertDialog alertDialog = new AlertDialog.Builder(AddBankAccountActivity.this).create();

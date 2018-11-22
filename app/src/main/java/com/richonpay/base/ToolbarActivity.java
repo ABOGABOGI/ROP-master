@@ -8,8 +8,9 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
+
+import butterknife.BindView;
 
 public abstract class ToolbarActivity extends BaseActivity {
     @BindView(R.id.toolbar)

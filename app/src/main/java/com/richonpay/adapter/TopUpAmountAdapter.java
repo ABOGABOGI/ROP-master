@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import com.richonpay.R;
 import com.richonpay.base.BaseAdapter;
 import com.richonpay.model.TopUpRequest;
 import com.richonpay.utils.Extension;
+
+import butterknife.BindView;
 
 public class TopUpAmountAdapter extends BaseAdapter<TopUpRequest, TopUpAmountAdapter.ViewHolder> {
     private final TopUpAmountAdapter.OnItemClickListener mListener;

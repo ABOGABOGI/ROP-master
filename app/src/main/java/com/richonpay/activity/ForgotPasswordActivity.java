@@ -8,13 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
-
-import java.util.Map;
-import java.util.Set;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import okhttp3.MultipartBody;
 import com.richonpay.R;
 import com.richonpay.api.API;
 import com.richonpay.api.APICallback;
@@ -22,6 +15,13 @@ import com.richonpay.api.BadRequest;
 import com.richonpay.base.ToolbarActivity;
 import com.richonpay.model.APIResponse;
 import com.richonpay.utils.Extension;
+
+import java.util.Map;
+import java.util.Set;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import okhttp3.MultipartBody;
 
 public class ForgotPasswordActivity extends ToolbarActivity {
 
@@ -123,7 +123,8 @@ public class ForgotPasswordActivity extends ToolbarActivity {
                             StringBuilder errorMessage = new StringBuilder();
                             Set<Map.Entry<String, JsonElement>> entries = error.errors.entrySet();//will return members of your object
                             for (Map.Entry<String, JsonElement> entry : entries) {
-                                errorMessage.append(entry.getValue().getAsString()).append("\n");;
+                                errorMessage.append(entry.getValue().getAsString()).append("\n");
+                                ;
                             }
 
                             AlertDialog alertDialog = new AlertDialog.Builder(ForgotPasswordActivity.this).create();
